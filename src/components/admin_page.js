@@ -1,180 +1,76 @@
+import { Button, Divider, Grid , TextField} from '@material-ui/core';
+import { Person, Money, Info,Settings, ExitToApp } from '@material-ui/icons';
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { Grid, Typography } from '@material-ui/core';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import Person from '@material-ui/icons/Person';
-import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+import AdminStat from './admin_status';
 import CustomizedTables from './table_component';
+import { useDispatch } from 'react-redux';
+import { logOut } from '../actions/auth_actions';
+import { useHistory } from 'react-router-dom';
+import logo from '../assets/images/logo.png'
+import Footer from './footer'
 
-const styles = (muiBaseTheme) => ({
-	card: {
-		maxWidth: 300,
-		margin: 'auto',
-		transition: '0.3s',
-		boxShadow: '0 8px 40px -12px rgba(0,0,0,0.3)',
-		'&:hover': {
-			boxShadow: '0 16px 70px -12.125px rgba(0,0,0,0.3)',
-		},
-	},
-	media: {
-		paddingTop: '56.25%',
-	},
-	content: {
-		textAlign: 'left',
-		padding: muiBaseTheme.spacing.unit * 3,
-	},
-	divider: {
-		margin: `${muiBaseTheme.spacing.unit * 3}px 0`,
-	},
-	heading: {
-		fontWeight: 'bold',
-	},
-	subheading: {
-		lineHeight: 1.8,
-	},
-	avatar: {
-		display: 'inline-block',
-		border: '2px solid white',
-		'&:not(:first-of-type)': {
-			marginLeft: -muiBaseTheme.spacing.unit,
-		},
-	},
-});
+const AdminPage = () => {
+	const dispatch = useDispatch();
+	const history = useHistory();
 
-const AdminPage = ({ classes }) => {
+	const handleLogout = () => {
+		dispatch(logOut());
+		history.push('/');
+	};
+
 	return (
-		<div>
-			<Grid container>
-				<Grid item xs={12} md={6} lg={3}>
-					<Card className={classes.root}>
-						<CardActionArea
-							style={{
-								display: 'flex',
-								justifyContent: 'center',
-								alignItems: 'center',
-								flexDirection: 'column',
-							}}
-						>
-							<i className="material-icons" style={{ color: '#3d5afe', fontSize: '100px' }}>
-								#
-							</i>
-							{/* <AttachMoneyIcon m style={{fontSize:'100px', color:'#3d5afe', alignSelf:'center'}} /> */}
-							<CardContent
-								style={{
-									display: 'flex',
-									justifyContent: 'center',
-									alignItems: 'center',
-									flexDirection: 'column',
-								}}
-							>
-								<Typography gutterBottom variant="h5" component="h2" style={{ color: 'grey' }}>
-									Number of customers
-								</Typography>
-								<Typography gutterBottom variant="h3" component="h2">
-									20
-								</Typography>
-							</CardContent>
-						</CardActionArea>
-					</Card>
-				</Grid>
-				<Grid item xs={12} md={6} lg={3}>
-					<Card className={classes.root}>
-						<CardActionArea
-							style={{
-								display: 'flex',
-								justifyContent: 'center',
-								alignItems: 'center',
-								flexDirection: 'column',
-							}}
-						>
-							<Person m style={{ fontSize: '115px', color: '#3d5afe', alignSelf: 'center' }} />
-							<CardContent
-								style={{
-									display: 'flex',
-									justifyContent: 'center',
-									alignItems: 'center',
-									flexDirection: 'column',
-								}}
-							>
-								<Typography gutterBottom variant="h5" component="h2" style={{ color: 'grey' }}>
-									New customers
-								</Typography>
-								<Typography gutterBottom variant="h3" component="h2">
-									2
-								</Typography>
-							</CardContent>
-						</CardActionArea>
-					</Card>
-				</Grid>
-				<Grid item xs={12} md={6} lg={3}>
-					<Card className={classes.root}>
-						<CardActionArea
-							style={{
-								display: 'flex',
-								justifyContent: 'center',
-								alignItems: 'center',
-								flexDirection: 'column',
-							}}
-						>
-							<AttachMoneyIcon m style={{ fontSize: '115px', color: '#3d5afe', alignSelf: 'center' }} />
-							<CardContent
-								style={{
-									display: 'flex',
-									justifyContent: 'center',
-									alignItems: 'center',
-									flexDirection: 'column',
-								}}
-							>
-								<Typography gutterBottom variant="h5" component="h2" style={{ color: 'grey' }}>
-									Today's Income
-								</Typography>
-								<Typography gutterBottom variant="h3" component="h2">
-									2,000
-								</Typography>
-							</CardContent>
-						</CardActionArea>
-					</Card>
-				</Grid>
-				<Grid item xs={12} md={6} lg={3}>
-					<Card className={classes.root}>
-						<CardActionArea
-							style={{
-								display: 'flex',
-								justifyContent: 'center',
-								alignItems: 'center',
-								flexDirection: 'column',
-							}}
-						>
-							<AccountBalanceIcon
-								m
-								style={{ fontSize: '115px', color: '#3d5afe', alignSelf: 'center' }}
-							/>
-							<CardContent
-								style={{
-									display: 'flex',
-									justifyContent: 'center',
-									alignItems: 'center',
-									flexDirection: 'column',
-								}}
-							>
-								<Typography gutterBottom variant="h5" component="h2" style={{ color: 'grey' }}>
-									Total Revenue
-								</Typography>
-								<Typography gutterBottom variant="h3" component="h2">
-									200,000
-								</Typography>
-							</CardContent>
-						</CardActionArea>
-					</Card>
-				</Grid>
+		<Grid container>
+			<Grid lg={2} item>
+				<div style={{display:'flex', justifyContent:'center', alignItems : 'start', flexDirection:'column'}}>
+					<img style={{marginTop:'50px', marginBottom:'30px'}} src={logo} alt="logo"/>
+					<TextField
+						
+						id="outlined-basic"
+						size="small"
+						label="Search"
+					/>
+					<Divider style={{marginTop:'50px'}}/>
+					<Button startIcon={<Person />} color='primary' size='large'>Customers</Button>
+					<Button startIcon={<Money />} color='primary' size='large'>Payments</Button>
+					<Button startIcon={<Info />} color='primary' size='large'>Admin Profile</Button>
+					<Button startIcon={<Settings />} color='primary' size='large'>Settings</Button>
+					<Button onClick={handleLogout} startIcon={<ExitToApp />} color='primary' size='large'>Logout</Button>
+
+				</div>
 			</Grid>
 
-			<CustomizedTables/>
-		</div>
+			<Grid lg={10} item>
+				<div style={{ position: 'relative', marginTop: '10px' , paddingBottom:'50px'}}>
+					{/* <div style={{ position: 'fixed', top: '10px', right: '10px' }}>
+						<Button size="large" variant="outlined" color="primary" startIcon={<Settings />}>
+							Settings
+						</Button>
+
+						<Button
+							size="large"
+							variant="outlined"
+							color="primary"
+							onClick={handleLogout}
+							startIcon={<ExitToApp />}
+						>
+							Log out
+						</Button>
+					</div> */}
+
+					{/* <TextField
+						style={{ position: 'fixed', top: '10px', right: '530px' }}
+						id="outlined-basic"
+						size="small"
+						label="Search"
+						variant="outlined"
+					/> */}
+					<AdminStat />
+					<CustomizedTables />
+					<Footer />
+				</div>
+			</Grid>
+		</Grid>
 	);
 };
 
-export default withStyles(styles)(AdminPage);
+export default AdminPage;

@@ -34,3 +34,9 @@ export const authFailure = () => {
         type : 'AUTH_FAILED'
     }
 }
+
+export const logOut = () => {
+    return {
+        type : 'LOGOUT'
+    }
+}
