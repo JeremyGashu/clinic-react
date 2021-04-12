@@ -11,7 +11,8 @@ export const authReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 authenticated : false,
                 authData : {},
-                sendingAuthData : false
+                sendingAuthData : false,
+                authError : false,
                 }
         case 'SENDING_AUTH_STATE':
             return {
@@ -24,13 +25,15 @@ export const authReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 authenticated : true,
                 sendingAuthData : false,
-                authData : action.payload
+                authData : action.payload,
+                authError : false,
             }
         case 'AUTH_FAILED':
             return {
                 ...state,
                 authenticated : false,
-                sendingAuthData : false
+                sendingAuthData : false,
+                authError : true,
             }
         case 'LOGOUT':
             localStorage.removeItem('AUTH_TOKEN')
@@ -38,7 +41,8 @@ export const authReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 authenticated : false,
                 sendingAuthData : false,
-                authData : {}
+                authData : {},
+                authError:false
             }
         default:
             return state

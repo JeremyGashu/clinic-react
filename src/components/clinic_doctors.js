@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -12,14 +12,14 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
-import { NavLink, Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { Accessible, CalendarToday, Dashboard, ExitToApp, Person } from '@material-ui/icons';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux'
+import {useHistory} from 'react-router-dom'
 import logo from '../assets/images/logo.png';
-import { getClinicInfoRequest } from '../actions/clinic_info_actions';
 import { logOut } from '../actions/auth_actions';
-import ClinicDashboard from './clinic_dashboard'
+import DoctorsTable from './clinic_doctors_table';
+import { getClinicInfoRequest } from '../actions/clinic_info_actions';
 
 const drawerWidth = 240;
 
@@ -85,20 +85,19 @@ const styles = (theme) => ({
 	},
 });
 
-const ClinicPage = (props) => {
-	useEffect(() => {
+const Doctors = (props) => {
+
+	
+
+    const dispatch = useDispatch();
+	const clinicState = useSelector(state => state.clinicState)
+	const history = useHistory();
+useEffect(() => {
 		dispatch(getClinicInfoRequest());
 	}, []);
-
-	const dispatch = useDispatch();
-	const clinicState = useSelector((state) => state.clinicState);
-
-	const history = useHistory();
-
 	const handleLogout = (e) => {
-		e.preventDefault();
+        e.preventDefault()
 		dispatch(logOut());
-
 		history.push('/');
 	};
 
@@ -113,11 +112,14 @@ const ClinicPage = (props) => {
 	};
 	const { classes, theme } = props;
 
-	console.log(clinicState);
+	if(clinicState.fetchReady) {
+		console.log(clinicState.clinicInfo.data.doctors)
+	}
 
 	return (
 		<div className={classes.root}>
 			<CssBaseline />
+			
 			<Drawer
 				variant="permanent"
 				className={classNames(classes.drawer, {
@@ -196,10 +198,11 @@ const ClinicPage = (props) => {
 				<Divider />
 			</Drawer>
 			<main className={classes.content}>
-				<ClinicDashboard/>
+				<DoctorsTable />
+				
 			</main>
 		</div>
 	);
 };
 
-export default withStyles(styles, { withTheme: true })(ClinicPage);
+export default withStyles(styles, { withTheme: true })(Doctors);

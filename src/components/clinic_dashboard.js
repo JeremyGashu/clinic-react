@@ -1,5 +1,4 @@
 import React from 'react'
-import {useSelector} from 'react-redux'
 import { Grid, Typography } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -8,7 +7,6 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import Person from '@material-ui/icons/Person';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import { withStyles } from '@material-ui/core/styles';
-import {getNewlyRegisteredCustomers, getNumberOfCustomers, getCompanyRevenue, getTodaysCompanyIncome} from '../utils/function_sets'
 
 const styles = (muiBaseTheme) => ({
 	card: {
@@ -45,13 +43,9 @@ const styles = (muiBaseTheme) => ({
 	},
 });
 
-const AdminStat = ({ classes }) => {
+const ClinicDashboard = ({ classes }) => {
 
-    const adminState = useSelector(state => state.adminState)
-    const totalCustmers = adminState.fetchReady ? getNumberOfCustomers(adminState.adminData.clinics) : 0
-    const newlyRegistered = adminState.fetchReady ? getNewlyRegisteredCustomers(adminState.adminData.clinics) : 0
-    const companyRevenue = adminState.fetchReady ? getCompanyRevenue(adminState.adminData.clinics) : 0
-    const todaysCIncome = adminState.fetchReady ? getTodaysCompanyIncome(adminState.adminData.clinics) : 0
+
 
     return (
         <Grid container>
@@ -78,7 +72,7 @@ const AdminStat = ({ classes }) => {
 								}}
 							>
                                 <Typography gutterBottom variant="h3" component="h2">
-									{totalCustmers}
+									20
 								</Typography>
 								<Typography gutterBottom variant="h5" component="h2" style={{ color: 'grey' }}>
 									Number of customers
@@ -108,7 +102,7 @@ const AdminStat = ({ classes }) => {
 								}}
 							>
                                 <Typography gutterBottom variant="h3" component="h2">
-									{newlyRegistered}
+									2
 								</Typography>
 								<Typography gutterBottom variant="h5" component="h2" style={{ color: 'grey' }}>
 									New customers
@@ -138,7 +132,7 @@ const AdminStat = ({ classes }) => {
 								}}
 							>
                                 <Typography gutterBottom variant="h3" component="h2">
-								{todaysCIncome}
+								20000 ETB
 								</Typography>
 								<Typography gutterBottom variant="h5" component="h2" style={{ color: 'grey' }}>
 									Today's Income
@@ -171,7 +165,7 @@ const AdminStat = ({ classes }) => {
 								}}
 							>
                                 <Typography gutterBottom variant="h3" component="h2">
-									{companyRevenue}
+									20000 ETB
 								</Typography>
 								<Typography gutterBottom variant="h5" component="h2" style={{ color: 'grey' }}>
 									Total Revenue
@@ -186,4 +180,4 @@ const AdminStat = ({ classes }) => {
 }
 
 
-export default withStyles(styles)(AdminStat)
+export default withStyles(styles)(ClinicDashboard)

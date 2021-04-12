@@ -4,10 +4,11 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import SignUp from './components/sign_up';
 import AdminPage from './components/admin_page';
 import ClinicPage from './components/clinic_page';
-import Appointments from './components/appointments';
-import Patients from './components/patients';
-import Doctors from './components/doctors';
-import Payments from './components/payments';
+import Appointments from './components/clinic_appointments';
+import Patients from './components/clinic_patients';
+import Doctors from './components/clinic_doctors';
+import Payments from './components/clinic_payments';
+import Footer from './components/footer';
 
 const App = (props) => {
 
@@ -28,9 +29,7 @@ const App = (props) => {
         <Route exact path='/payments' component={Payments} />
       </Switch>
     </Router>
-    {/* <Fab  onClick={handleLogOut} style={{zIndex:'1000', backgroundColor:'blue',position : 'fixed', right : '10px',bottom : '5px', padding:'3px'}}>
-      <ExitToApp style={{color : 'white'}}/>
-    </Fab> */}
+    <Footer />
     </div>
   );
 }

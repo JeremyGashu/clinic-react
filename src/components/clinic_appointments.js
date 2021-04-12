@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import AppointmentsTable from './clinic_appointments_table'
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -12,14 +13,13 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
-import { NavLink, Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { Accessible, CalendarToday, Dashboard, ExitToApp, Person } from '@material-ui/icons';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux'
+import {useHistory} from 'react-router-dom'
 import logo from '../assets/images/logo.png';
-import { getClinicInfoRequest } from '../actions/clinic_info_actions';
 import { logOut } from '../actions/auth_actions';
-import ClinicDashboard from './clinic_dashboard'
+import { getClinicInfoRequest } from '../actions/clinic_info_actions';
 
 const drawerWidth = 240;
 
@@ -85,20 +85,20 @@ const styles = (theme) => ({
 	},
 });
 
-const ClinicPage = (props) => {
-	useEffect(() => {
-		dispatch(getClinicInfoRequest());
-	}, []);
+const Appointments = (props) => {
 
-	const dispatch = useDispatch();
-	const clinicState = useSelector((state) => state.clinicState);
+	
+
+    const dispatch = useDispatch();
+	const clinicState = useSelector(state => state.clinicState)
 
 	const history = useHistory();
-
+useEffect(() => {
+		dispatch(getClinicInfoRequest());
+	}, []);
 	const handleLogout = (e) => {
-		e.preventDefault();
+        e.preventDefault()
 		dispatch(logOut());
-
 		history.push('/');
 	};
 
@@ -113,7 +113,9 @@ const ClinicPage = (props) => {
 	};
 	const { classes, theme } = props;
 
-	console.log(clinicState);
+	if(clinicState.fetchReady) {
+		console.log(clinicState.clinicInfo.data.appointments)
+	}
 
 	return (
 		<div className={classes.root}>
@@ -196,10 +198,11 @@ const ClinicPage = (props) => {
 				<Divider />
 			</Drawer>
 			<main className={classes.content}>
-				<ClinicDashboard/>
+				<AppointmentsTable />
+				
 			</main>
 		</div>
 	);
 };
 
-export default withStyles(styles, { withTheme: true })(ClinicPage);
+export default withStyles(styles, { withTheme: true })(Appointments);

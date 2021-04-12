@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -12,14 +12,14 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
-import { NavLink, Link } from 'react-router-dom';
+import { Link, NavLink} from 'react-router-dom';
 import { Accessible, CalendarToday, Dashboard, ExitToApp, Person } from '@material-ui/icons';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch , useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
-import { getClinicInfoRequest } from '../actions/clinic_info_actions';
 import { logOut } from '../actions/auth_actions';
-import ClinicDashboard from './clinic_dashboard'
+import PaymentsTable from './clinic_payments_table';
+import { getClinicInfoRequest } from '../actions/clinic_info_actions';
 
 const drawerWidth = 240;
 
@@ -85,24 +85,26 @@ const styles = (theme) => ({
 	},
 });
 
-const ClinicPage = (props) => {
+const Payments = (props) => {
+	const dispatch = useDispatch();
+	const clinicState = useSelector(state => state.clinicState)
+	const history = useHistory();
+
 	useEffect(() => {
 		dispatch(getClinicInfoRequest());
 	}, []);
 
-	const dispatch = useDispatch();
-	const clinicState = useSelector((state) => state.clinicState);
-
-	const history = useHistory();
-
 	const handleLogout = (e) => {
 		e.preventDefault();
 		dispatch(logOut());
-
 		history.push('/');
 	};
 
 	const [state, setState] = useState(true);
+
+	if(clinicState.fetchReady) {
+		console.log(clinicState.clinicInfo.data.patients)
+	}
 
 	const handleDrawerOpen = () => {
 		setState(true);
@@ -111,13 +113,12 @@ const ClinicPage = (props) => {
 	const handleDrawerClose = () => {
 		setState(false);
 	};
-	const { classes, theme } = props;
-
-	console.log(clinicState);
+	const { classes } = props;
 
 	return (
 		<div className={classes.root}>
 			<CssBaseline />
+			
 			<Drawer
 				variant="permanent"
 				className={classNames(classes.drawer, {
@@ -196,10 +197,11 @@ const ClinicPage = (props) => {
 				<Divider />
 			</Drawer>
 			<main className={classes.content}>
-				<ClinicDashboard/>
+				<PaymentsTable />
+
 			</main>
 		</div>
 	);
 };
 
-export default withStyles(styles, { withTheme: true })(ClinicPage);
+export default withStyles(styles, { withTheme: true })(Payments);

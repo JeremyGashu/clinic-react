@@ -60,7 +60,6 @@ const CustomizedTables = () => {
   }, [])
 
 
-  console.log(adminState)
   return (
     adminState.fetchReady ? <TableContainer style={{marginTop:'25px'}} component={Paper}>
     <Table className={classes.table} aria-label="customized table">

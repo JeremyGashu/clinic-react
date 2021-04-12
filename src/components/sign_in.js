@@ -4,7 +4,6 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
@@ -12,6 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import {useHistory} from 'react-router-dom'
 import { sendAuthData } from "../actions/auth_actions";
+import {NavLink} from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -64,8 +64,6 @@ const SignInSide = () => {
       if(username !== '' && password !== '') {
         dispatch(sendAuthData(username, password))
       }
-    //   const response = await axios.post('/auth/login', {username, password})
-    //   console.log(response.data)
   }
 
 
@@ -119,10 +117,9 @@ const SignInSide = () => {
               id="password"
               autoComplete="current-password"
             />
-            {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            /> */}
+            {authState.authError && <Typography style={{color:'red'}} component="p" variant="p">
+              Username or password incorrect!
+          </Typography>}
             <Button
             disabled={authState.sendingAuthData}
             onClick={handleLoginSubmit}
@@ -142,9 +139,9 @@ const SignInSide = () => {
                 </Link>
               </Grid> */}
               <Grid item>
-                <Link href="/signup" variant="body2">
+                <NavLink to="/signup">
                   {"Don't have an account? Sign Up"}
-                </Link>
+                </NavLink>
               </Grid>
             </Grid>
           </form>

@@ -5,11 +5,13 @@ import { createStore, applyMiddleware , combineReducers} from "redux";
 import thunk from "redux-thunk";
 import { authReducer } from './reducers/auth_reducers';
 import { adminReducer } from './reducers/admin_reducer';
+import { signUpReducer } from './reducers/signup_reducer'
+import {clinicReducer} from './reducers/clinic_info_reducers'
 
 import {Provider} from 'react-redux'
 
 
-const store = createStore(combineReducers({authState:authReducer, adminState:adminReducer}), applyMiddleware(thunk));
+const store = createStore(combineReducers({authState:authReducer, adminState:adminReducer, signUpState : signUpReducer, clinicState:clinicReducer}), applyMiddleware(thunk));
 
 ReactDOM.render(
   <React.StrictMode>

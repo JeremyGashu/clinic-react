@@ -2,7 +2,6 @@ import axios from "../utils/Axios";
 
 export const getAdminDataRequest = () => {
     let authToken = localStorage.getItem('AUTH_TOKEN')
-    console.log(authToken)
     return dispatch => {
         dispatch(sendingAdminDataRequest())
       return axios({

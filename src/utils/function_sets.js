@@ -66,6 +66,11 @@ export const getTodaysCompanyIncome = (clinics) => {
     return income
 }
 
+export const getFormattedDate = (date) => {
+    let d = new Date(date)
+    return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`
+}
+
 const isSameDate = (date1, date2) => {
     return date1.getDate() === date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getYear() === date2.getYear()
 }
