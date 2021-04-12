@@ -8,7 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import {useSelector} from 'react-redux'
-import { Typography } from '@material-ui/core';
+import { IconButton, Typography } from '@material-ui/core';
+import { Delete, Person } from '@material-ui/icons';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -61,18 +62,18 @@ const DoctorsTable = () => {
           <StyledTableCell align="right">Speciality</StyledTableCell>
           <StyledTableCell align="right">Gender</StyledTableCell>
           <StyledTableCell align="right">Address</StyledTableCell>
+          <StyledTableCell align="right">Actions</StyledTableCell>
         </TableRow>
       </TableHead>
       <TableBody>
         {rows.map((row) => (
           <StyledTableRow key={Math.random()}>
-            <StyledTableCell align="right">{'Photo'}</StyledTableCell>
+            <StyledTableCell align="right"><Person style={{color:'#3d5afe', fontSize:'35px'}}/></StyledTableCell>
             <StyledTableCell align="right">{row.name}</StyledTableCell>
             <StyledTableCell align="right">{row.speciality}</StyledTableCell>
             <StyledTableCell align="right">{row.gender}</StyledTableCell>
             <StyledTableCell align="right">{row.address}</StyledTableCell>
-
-            {/* {//DELETE BUTTON} */}
+            <StyledTableCell align="right"><IconButton><Delete style={{color:'red', fontSize:'20px'}}/></IconButton></StyledTableCell>
           </StyledTableRow>
         ))}
       </TableBody>

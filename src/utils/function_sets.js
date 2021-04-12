@@ -71,6 +71,25 @@ export const getFormattedDate = (date) => {
     return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`
 }
 
+export const getNewPatientsClinic = (clinicState) => {
+    let count = 0
+    let patients = clinicState.clinicInfo.data.patients
+    patients.forEach(patient => {
+        if(isSameDate(new Date(patient.date), new Date())) {
+            count += 1
+        }
+    })
+
+    return count
+}
+
+
+
+
+//new patients
+//todays income
+//totalIncome
+
 const isSameDate = (date1, date2) => {
     return date1.getDate() === date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getYear() === date2.getYear()
 }

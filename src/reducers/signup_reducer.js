@@ -32,7 +32,6 @@ export const signUpReducer = (state = INITIAL_STATE, action) => {
                 signUpData : {},
                 signUpError : true,
                 errorMessage : action.payload,
-                signUpSuccess : true,
 			};
 		default:
 			return state;

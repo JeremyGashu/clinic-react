@@ -7,11 +7,14 @@ import { authReducer } from './reducers/auth_reducers';
 import { adminReducer } from './reducers/admin_reducer';
 import { signUpReducer } from './reducers/signup_reducer'
 import {clinicReducer} from './reducers/clinic_info_reducers'
+import {doctorReducer} from './reducers/doctor_reducer'
+import {paymentReducer} from './reducers/payment_reducer'
+import {patientReducer} from './reducers/patient_reducer'
 
 import {Provider} from 'react-redux'
+import { appointmentReducer } from './reducers/appointment_reducer';
 
-
-const store = createStore(combineReducers({authState:authReducer, adminState:adminReducer, signUpState : signUpReducer, clinicState:clinicReducer}), applyMiddleware(thunk));
+const store = createStore(combineReducers({authState:authReducer, adminState:adminReducer, signUpState : signUpReducer, clinicState:clinicReducer, appointmentState : appointmentReducer, doctorState : doctorReducer, paymentState : paymentReducer, patientState : patientReducer}), applyMiddleware(thunk));
 
 ReactDOM.render(
   <React.StrictMode>

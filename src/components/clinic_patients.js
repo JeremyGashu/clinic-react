@@ -13,17 +13,48 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
 import { Link, NavLink } from 'react-router-dom';
-import { Accessible, CalendarToday, Dashboard, ExitToApp, Person } from '@material-ui/icons';
+import { Accessible, Add, CalendarToday, Dashboard, ExitToApp, Person, TrendingUpRounded } from '@material-ui/icons';
 import { useDispatch,useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
 import { logOut } from '../actions/auth_actions';
 import PatientsTable from './clinic_patients_table';
 import { getClinicInfoRequest } from '../actions/clinic_info_actions';
+import Header from './header';
+import { Avatar, Backdrop, Button, Fab, Fade, Grid, MenuItem, Modal, Select, TextField, Typography } from '@material-ui/core';
+import { sendPatientData } from '../actions/patients_actions';
 
 const drawerWidth = 240;
 
 const styles = (theme) => ({
+	'@global': {
+		body: {
+			backgroundColor: theme.palette.common.white,
+		},
+	},
+	paper: {
+		marginTop: theme.spacing(8),
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+	},
+	avatar: {
+		margin: theme.spacing(1),
+		backgroundColor: theme.palette.secondary.main,
+	},
+	form: {
+		width: '100%', // Fix IE 11 issue.
+		marginTop: theme.spacing(3),
+	},
+	submit: {
+		margin: theme.spacing(3, 0, 2),
+	},
+	modal: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+
 	root: {
 		display: 'flex',
 	},
@@ -85,11 +116,17 @@ const styles = (theme) => ({
 	},
 });
 
+
 const Patients = (props) => {
+
+
+
+	const [open, setOpen] = useState(false);
 
 	
 	const dispatch = useDispatch();
 	const clinicState = useSelector(state => state.clinicState)
+	const patientState = useSelector(state => state.patientState)
 	const history = useHistory();
 useEffect(() => {
 		dispatch(getClinicInfoRequest());
@@ -100,7 +137,22 @@ useEffect(() => {
 		history.push('/');
 	};
 
+	const [name, setName] = useState('Ermias Gashu');
+	const [id, setID] = useState('Surgeon');
+	const [age, setAge] = useState(20);
+	const [address, SetAddress] = useState('Addis Ababa, Kality');
+	const [phoneNo, setPhoneNumber] = useState('Addis Ababa, Kality');
+	const [status, setStatus] = useState(true);
+
 	const [state, setState] = useState(true);
+
+	const handleOpen = () => {
+		setOpen(true);
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+	};
 
 
 	const handleDrawerOpen = () => {
@@ -110,11 +162,36 @@ useEffect(() => {
 	const handleDrawerClose = () => {
 		setState(false);
 	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		await dispatch(sendPatientData({ name,id, age,  address,  phoneNo, status }));
+		handleClose();
+		dispatch(getClinicInfoRequest());
+	};
 	const { classes, theme } = props;
 
-	if(clinicState.fetchReady) {
-		console.log(clinicState.clinicInfo.data.doctors)
-	}
+	const handleNameChange = (e) => {
+		setName(e.target.value);
+	};
+	const handleIDChange = (e) => {
+		setID(e.target.value);
+	};
+	const handleAgeChange = (e) => {
+		setAge(e.target.value);
+	};
+	const handleAddressChange = (e) => {
+		SetAddress(e.target.value);
+	};
+
+	const handlePhoneNumberChange = (e) => {
+		setPhoneNumber(e.target.value);
+	};
+
+	const handleStatusChange = (e) => {
+		setStatus(e.target.value);
+	};
+
 
 	return (
 		<div className={classes.root}>
@@ -198,7 +275,154 @@ useEffect(() => {
 				<Divider />
 			</Drawer>
 			<main className={classes.content}>
+				<Header />
+				<Fab
+					style={{ backgroundColor: 'blue', position: 'fixed', bottom: '60px', right: '25px' }}
+					onClick={handleOpen}
+				>
+					<Add style={{ color: 'white' }} />
+				</Fab>
 				<PatientsTable />
+
+				<Modal
+					aria-labelledby="transition-modal-title"
+					aria-describedby="transition-modal-description"
+					className={classes.modal}
+					open={open}
+					onClose={handleClose}
+					closeAfterTransition
+					BackdropComponent={Backdrop}
+					BackdropProps={{
+						timeout: 500,
+					}}
+				>
+					<Fade in={open}>
+						<div
+							className={classes.paper}
+							style={{
+								maxHeight: '600px',
+								backgroundColor: 'white',
+								maxWidth: '500px',
+								padding: '30px',
+								overflow: 'auto',
+								paddingBottom: '200px',
+								borderRadius: '30px',
+							}}
+						>
+							<Avatar className={classes.avatar}>
+								<Person />
+							</Avatar>
+							<Typography component="h1" variant="h5">
+								Add Patient
+							</Typography>
+							<form onSubmit={handleSubmit} className={classes.form}>
+								<Grid container spacing={2}>
+									<Grid item xs={12}>
+										<TextField
+											onChange={handleNameChange}
+											variant="outlined"
+											required
+											fullWidth
+											id="name"
+											label="Name"
+											name="name"
+											autoComplete="name"
+										/>
+									</Grid>
+									<Grid item xs={12}>
+										<TextField
+											onChange={handleIDChange}
+											variant="outlined"
+											required
+											fullWidth
+											id="id"
+											label="ID"
+											name="id"
+											autoComplete="id"
+										/>
+									</Grid>
+
+
+									<Grid item xs={12}>
+										<TextField
+											onChange={handleAgeChange}
+											autoComplete="from"
+											name="From"
+											variant="outlined"
+											required
+											fullWidth
+											id="age"
+											label="Age"
+											autoFocus
+											type='number'
+										/>
+									</Grid>
+
+									
+
+									<Grid item xs={12}>
+										<TextField
+											onChange={handleAddressChange}
+											autoComplete="from"
+											name="From"
+											variant="outlined"
+											required
+											fullWidth
+											id="address"
+											label="Address"
+											autoFocus
+										/>
+									</Grid>
+
+									<Grid item xs={12}>
+										<TextField
+											onChange={handlePhoneNumberChange}
+											autoComplete="from"
+											name="From"
+											variant="outlined"
+											required
+											fullWidth
+											id="phone"
+											label="Phone Number"
+											autoFocus
+										/>
+									</Grid>
+									<Grid item xs={12}>
+										<Typography>Status</Typography>
+										<Select
+											labelId="demo-simple-select-label"
+											id="demo-simple-select"
+											value={status}
+											onChange={handleStatusChange}
+										>
+											<MenuItem value={true}>Approved</MenuItem>
+											<MenuItem value={false}>Pending</MenuItem>
+										</Select>
+									</Grid>
+								</Grid>
+								{!patientState.sendingPatientData && (
+									<Button
+										onClick={handleSubmit}
+										type="submit"
+										fullWidth
+										variant="contained"
+										color="primary"
+										className={classes.submit}
+									>
+										Add Patient
+									</Button>
+								)}
+
+								{/* {!signUpState.sendingSignUpData && (
+			
+		)} */}
+							</form>
+						</div>
+					</Fade>
+				</Modal>
+
+
+
 
 			</main>
 		</div>

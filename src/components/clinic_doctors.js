@@ -13,17 +13,60 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
 import { Link, NavLink } from 'react-router-dom';
-import { Accessible, CalendarToday, Dashboard, ExitToApp, Person } from '@material-ui/icons';
-import {useDispatch, useSelector} from 'react-redux'
-import {useHistory} from 'react-router-dom'
+import { Accessible, Add, CalendarToday, Dashboard, ExitToApp, Person } from '@material-ui/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
 import { logOut } from '../actions/auth_actions';
 import DoctorsTable from './clinic_doctors_table';
 import { getClinicInfoRequest } from '../actions/clinic_info_actions';
+import Header from './header';
+import {
+	Avatar,
+	Backdrop,
+	Button,
+	Fab,
+	Fade,
+	Grid,
+	MenuItem,
+	Modal,
+	Select,
+	TextField,
+	Typography,
+} from '@material-ui/core';
+import { sendDoctorData } from '../actions/doctor_action';
 
 const drawerWidth = 240;
 
 const styles = (theme) => ({
+	'@global': {
+		body: {
+			backgroundColor: theme.palette.common.white,
+		},
+	},
+	paper: {
+		marginTop: theme.spacing(8),
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+	},
+	avatar: {
+		margin: theme.spacing(1),
+		backgroundColor: theme.palette.secondary.main,
+	},
+	form: {
+		width: '100%', // Fix IE 11 issue.
+		marginTop: theme.spacing(3),
+	},
+	submit: {
+		margin: theme.spacing(3, 0, 2),
+	},
+	modal: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+
 	root: {
 		display: 'flex',
 	},
@@ -86,17 +129,25 @@ const styles = (theme) => ({
 });
 
 const Doctors = (props) => {
+	const [open, setOpen] = useState(false);
+	const doctorState = useSelector((state) => state.doctorState);
 
-	
+	const handleOpen = () => {
+		setOpen(true);
+	};
 
-    const dispatch = useDispatch();
-	const clinicState = useSelector(state => state.clinicState)
+	const handleClose = () => {
+		setOpen(false);
+	};
+
+	const dispatch = useDispatch();
+	const clinicState = useSelector((state) => state.clinicState);
 	const history = useHistory();
-useEffect(() => {
+	useEffect(() => {
 		dispatch(getClinicInfoRequest());
 	}, []);
 	const handleLogout = (e) => {
-        e.preventDefault()
+		e.preventDefault();
 		dispatch(logOut());
 		history.push('/');
 	};
@@ -112,14 +163,39 @@ useEffect(() => {
 	};
 	const { classes, theme } = props;
 
-	if(clinicState.fetchReady) {
-		console.log(clinicState.clinicInfo.data.doctors)
+	if (clinicState.fetchReady) {
+		console.log(doctorState.sendingDoctorData);
 	}
+
+	const [name, setName] = useState('Ermias Gashu');
+	const [speciality, setSpeciality] = useState('Surgeon');
+	const [gender, setGender] = useState('Male');
+	const [address, SetAddress] = useState('Addis Ababa, Kality');
+
+	const handleNameChange = (e) => {
+		setName(e.target.value);
+	};
+	const handleSpecialityChange = (e) => {
+		setSpeciality(e.target.value);
+	};
+	const handleGenderChange = (e) => {
+		setGender(e.target.value);
+	};
+	const handleAddressChange = (e) => {
+		SetAddress(e.target.value);
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		await dispatch(sendDoctorData({ name, gender, speciality, address }));
+		handleClose();
+		dispatch(getClinicInfoRequest());
+	};
 
 	return (
 		<div className={classes.root}>
 			<CssBaseline />
-			
+
 			<Drawer
 				variant="permanent"
 				className={classNames(classes.drawer, {
@@ -136,7 +212,7 @@ useEffect(() => {
 			>
 				<div className={classes.toolbar}>
 					<IconButton onClick={state ? handleDrawerClose : handleDrawerOpen}>
-						{state ? <ChevronLeftIcon /> : <ChevronRightIcon /> }
+						{state ? <ChevronLeftIcon /> : <ChevronRightIcon />}
 					</IconButton>
 				</div>
 				<Divider />
@@ -198,8 +274,117 @@ useEffect(() => {
 				<Divider />
 			</Drawer>
 			<main className={classes.content}>
+				<Header />
+				<Fab
+					style={{ backgroundColor: 'blue', position: 'fixed', bottom: '60px', right: '25px' }}
+					onClick={handleOpen}
+				>
+					<Add style={{ color: 'white' }} />
+				</Fab>
 				<DoctorsTable />
-				
+				<Modal
+					aria-labelledby="transition-modal-title"
+					aria-describedby="transition-modal-description"
+					className={classes.modal}
+					open={open}
+					onClose={handleClose}
+					closeAfterTransition
+					BackdropComponent={Backdrop}
+					BackdropProps={{
+						timeout: 500,
+					}}
+				>
+					<Fade in={open}>
+						<div
+							className={classes.paper}
+							style={{
+								maxHeight: '600px',
+								backgroundColor: 'white',
+								maxWidth: '500px',
+								padding: '30px',
+								overflow: 'auto',
+								paddingBottom: '200px',
+								borderRadius: '30px',
+							}}
+						>
+							<Avatar className={classes.avatar}>
+								<Person />
+							</Avatar>
+							<Typography component="h1" variant="h5">
+								Add Doctor
+							</Typography>
+							<form onSubmit={handleSubmit} className={classes.form}>
+								<Grid container spacing={2}>
+									<Grid item xs={12}>
+										<TextField
+											onChange={handleNameChange}
+											variant="outlined"
+											required
+											fullWidth
+											id="name"
+											label="Name"
+											name="name"
+											autoComplete="name"
+										/>
+									</Grid>
+									<Grid item xs={12}>
+										<TextField
+											onChange={handleSpecialityChange}
+											variant="outlined"
+											required
+											fullWidth
+											id="speciality"
+											label="Speciality"
+											name="speciality"
+											autoComplete="speciality"
+										/>
+									</Grid>
+									<Grid item xs={12}>
+										<Select
+											labelId="demo-simple-select-label"
+											id="demo-simple-select"
+											value={gender}
+											onChange={handleGenderChange}
+										>
+											<MenuItem value="Male">Male</MenuItem>
+											<MenuItem value="Female">Female</MenuItem>
+										</Select>
+									</Grid>
+
+									<Grid item xs={12}>
+										<TextField
+											onChange={handleAddressChange}
+											autoComplete="from"
+											name="From"
+											variant="outlined"
+											required
+											fullWidth
+											id="address"
+											label="Address"
+											autoFocus
+										/>
+									</Grid>
+								</Grid>
+								{!doctorState.sendingDoctorData && (
+									<Button
+										onClick={handleSubmit}
+										type="submit"
+										fullWidth
+										variant="contained"
+										color="primary"
+										className={classes.submit}
+									>
+										Add Doctor
+									</Button>
+								)}
+
+								{/* {!signUpState.sendingSignUpData && (
+			
+		)} */}
+							</form>
+						</div>
+					</Fade>
+				</Modal>
 			</main>
 		</div>
 	);

@@ -20,6 +20,7 @@ import logo from '../assets/images/logo.png';
 import { getClinicInfoRequest } from '../actions/clinic_info_actions';
 import { logOut } from '../actions/auth_actions';
 import ClinicDashboard from './clinic_dashboard'
+import Header from './header';
 
 const drawerWidth = 240;
 
@@ -196,6 +197,7 @@ const ClinicPage = (props) => {
 				<Divider />
 			</Drawer>
 			<main className={classes.content}>
+			<Header />
 				<ClinicDashboard/>
 			</main>
 		</div>

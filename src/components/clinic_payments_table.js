@@ -8,7 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { useSelector } from 'react-redux';
-import { Typography } from '@material-ui/core';
+import { IconButton, Typography } from '@material-ui/core';
+import { Delete } from '@material-ui/icons';
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -81,8 +82,8 @@ const PaymentsTable = () => {
 							<StyledTableCell align="right">{row.charges}</StyledTableCell>
 							<StyledTableCell align="right">{row.vat}</StyledTableCell>
 							<StyledTableCell align="right">{row.total}</StyledTableCell>
-							<StyledTableCell align="right">{row.status}</StyledTableCell>
-							{/* {//DELETE BUTTON} */}
+							{/* <StyledTableCell align="right">{row.status}</StyledTableCell> */}
+							<StyledTableCell align="right"><IconButton><Delete style={{color:'red', fontSize:'20px'}}/></IconButton></StyledTableCell>
 						</StyledTableRow>
 					))}
 				</TableBody>

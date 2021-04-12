@@ -13,17 +13,48 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
 import { Link, NavLink} from 'react-router-dom';
-import { Accessible, CalendarToday, Dashboard, ExitToApp, Person } from '@material-ui/icons';
+import { Accessible, Add, CalendarToday, Dashboard, ExitToApp, Money, Person } from '@material-ui/icons';
 import { useDispatch , useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
 import { logOut } from '../actions/auth_actions';
 import PaymentsTable from './clinic_payments_table';
 import { getClinicInfoRequest } from '../actions/clinic_info_actions';
+import Header from './header';
+import { Avatar, Backdrop, Button, Fab, Fade, Grid, MenuItem, Modal, Select, TextField, Typography } from '@material-ui/core';
+import { sendPaymentData } from '../actions/payment_actions';
 
 const drawerWidth = 240;
 
 const styles = (theme) => ({
+	'@global': {
+		body: {
+			backgroundColor: theme.palette.common.white,
+		},
+	},
+	paper: {
+		marginTop: theme.spacing(8),
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+	},
+	avatar: {
+		margin: theme.spacing(1),
+		backgroundColor: theme.palette.secondary.main,
+	},
+	form: {
+		width: '100%', // Fix IE 11 issue.
+		marginTop: theme.spacing(3),
+	},
+	submit: {
+		margin: theme.spacing(3, 0, 2),
+	},
+	modal: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+
 	root: {
 		display: 'flex',
 	},
@@ -88,6 +119,7 @@ const styles = (theme) => ({
 const Payments = (props) => {
 	const dispatch = useDispatch();
 	const clinicState = useSelector(state => state.clinicState)
+	const paymentState = useSelector(state => state.paymentState)
 	const history = useHistory();
 
 	useEffect(() => {
@@ -113,7 +145,56 @@ const Payments = (props) => {
 	const handleDrawerClose = () => {
 		setState(false);
 	};
+
+	const handleOpen = () => {
+		setOpen(true);
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+	};
+
 	const { classes } = props;
+	const [open, setOpen] = useState(false);
+
+	const [billNo, setBillNo] = useState('1');
+	const [patientName, setPatientName] = useState('Ermias Gashu');
+	const [doctor, setDoctor] = useState('Gabriel Martilnelli');
+	const [charges, setCharges] = useState(200);
+	const [vat, setVat] = useState('10%');
+	const [total, setTotal] = useState(239);	
+
+	const handleBillNoChange = (e) => {
+		setBillNo(e.target.value);
+	};
+	const handlePatienrNameChange = (e) => {
+		setPatientName(e.target.value);
+	};
+	const handleDoctorChange = (e) => {
+		setDoctor(e.target.value);
+	};
+	const handleChargesChange = (e) => {
+		setCharges(e.target.value);
+	};
+
+	const handleVatChange = (e) => {
+		setVat(e.target.value);
+	};
+
+	const handleTotalChange = (e) => {
+		setTotal(e.target.value);
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		await dispatch(
+			sendPaymentData({billNo, patientName,doctor, charges, vat, total })
+		);
+		handleClose();
+		dispatch(getClinicInfoRequest());
+	};
+	
+
 
 	return (
 		<div className={classes.root}>
@@ -197,7 +278,144 @@ const Payments = (props) => {
 				<Divider />
 			</Drawer>
 			<main className={classes.content}>
+				<Header />
+				<Fab
+					style={{ backgroundColor: 'blue', position: 'fixed', bottom: '60px', right: '25px' }}
+					onClick={handleOpen}
+				>
+					<Add style={{ color: 'white' }} />
+				</Fab>
 				<PaymentsTable />
+
+				<Modal
+					aria-labelledby="transition-modal-title"
+					aria-describedby="transition-modal-description"
+					className={classes.modal}
+					open={open}
+					onClose={handleClose}
+					closeAfterTransition
+					BackdropComponent={Backdrop}
+					BackdropProps={{
+						timeout: 500,
+					}}
+				>
+					<Fade in={open}>
+						<div
+							className={classes.paper}
+							style={{
+								maxHeight: '600px',
+								backgroundColor: 'white',
+								maxWidth: '500px',
+								padding: '30px',
+								overflow: 'auto',
+								paddingBottom: '200px',
+								borderRadius: '30px',
+							}}
+						>
+							<Avatar className={classes.avatar}>
+								<Money />
+							</Avatar>
+							<Typography component="h1" variant="h5">
+								Add Payment
+							</Typography>
+							<form onSubmit={handleSubmit} className={classes.form}>
+								<Grid container spacing={2}>
+								<Grid item xs={12}>
+										<TextField
+											onChange={handleBillNoChange}
+											variant="outlined"
+											required
+											fullWidth
+											id="bill"
+											label="Bill Number"
+											name="bill"
+											autoComplete="bill"
+										/>
+									</Grid>
+									<Grid item xs={12}>
+										<TextField
+											onChange={handlePatienrNameChange}
+											variant="outlined"
+											required
+											fullWidth
+											id="name"
+											label="Patient Name"
+											name="name"
+											autoComplete="name"
+										/>
+									</Grid>
+									<Grid item xs={12}>
+										<TextField
+											onChange={handleDoctorChange}
+											variant="outlined"
+											required
+											fullWidth
+											id="doctor"
+											label="Doctor"
+											name="doctor"
+											autoComplete="doctor"
+										/>
+									</Grid>
+
+									<Grid item xs={12}>
+										<TextField
+											onChange={handleChargesChange}
+											variant="outlined"
+											required
+											fullWidth
+											id="charges"
+											label="Charges"
+											name="charges"
+											autoComplete="charges"
+										/>
+									</Grid>
+
+									
+									<Grid item xs={12}>
+										<TextField
+											onChange={handleVatChange}
+											variant="outlined"
+											required
+											fullWidth
+											id="vat"
+											label="VAT"
+											name="vat"
+											autoComplete="vat"
+										/>
+									</Grid>
+									<Grid item xs={12}>
+										<TextField
+											onChange={handleTotalChange}
+											variant="outlined"
+											required
+											fullWidth
+											id="total"
+											label="Total"
+											name="total"
+											autoComplete="total"
+										/>
+									</Grid>
+								</Grid>
+								{!paymentState.sendingPaymentData && (
+									<Button
+										onClick={handleSubmit}
+										type="submit"
+										fullWidth
+										variant="contained"
+										color="primary"
+										className={classes.submit}
+									>
+										Add Payment
+									</Button>
+								)}
+
+								{/* {!signUpState.sendingSignUpData && (
+			
+		)} */}
+							</form>
+						</div>
+					</Fade>
+				</Modal>
 
 			</main>
 		</div>

@@ -65,7 +65,7 @@ const AdminStat = ({ classes }) => {
 								flexDirection: 'column',
 							}}
 						>
-							<i className="material-icons" style={{ color: '#3d5afe', fontSize: '100px' }}>
+							<i className="material-icons hashtag" style={{ color: '#3d5afe', fontSize: '100px' }}>
 								#
 							</i>
 							{/* <AttachMoneyIcon m style={{fontSize:'100px', color:'#3d5afe', alignSelf:'center'}} /> */}
