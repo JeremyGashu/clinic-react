@@ -1,7 +1,7 @@
 import Axios from 'axios'
 
 const axios = Axios.create({
-    baseURL : 'http://localhost:5000/api',
+    baseURL : 'https://glacial-fjord-81336.herokuapp.com/api',
 })
 
 export default axios
