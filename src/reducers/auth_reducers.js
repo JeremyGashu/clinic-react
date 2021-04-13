@@ -14,7 +14,7 @@ export const authReducer = (state = INITIAL_STATE, action) => {
                 sendingAuthData : false,
                 authError : false,
                 }
-        case 'SENDING_AUTH_STATE':
+        case 'SENDIND_AUTH_DATA':
             return {
                 ...state,
                 sendingAuthData : true

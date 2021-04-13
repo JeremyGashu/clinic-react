@@ -36,7 +36,7 @@ import {
 } from '@material-ui/core';
 import { sendDoctorData } from '../actions/doctor_action';
 
-const drawerWidth = 240;
+const drawerWidth = 280;
 
 const styles = (theme) => ({
 	'@global': {
@@ -276,7 +276,7 @@ const Doctors = (props) => {
 			<main className={classes.content}>
 				<Header />
 				<Fab
-					style={{ backgroundColor: 'blue', position: 'fixed', bottom: '60px', right: '25px' }}
+					style={{ backgroundColor: 'blue', position: 'fixed', bottom: '75px', right: '25px' }}
 					onClick={handleOpen}
 				>
 					<Add style={{ color: 'white' }} />

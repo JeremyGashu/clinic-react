@@ -27,8 +27,7 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { sendAppointmentData } from '../actions/appointment_actions';
 
-const drawerWidth = 240;
-
+const drawerWidth = 280;
 const styles = (theme) => ({
 	'@global': {
 		body: {
@@ -274,7 +273,7 @@ const Appointments = (props) => {
 			<main className={classes.content}>
 				<Header />
 				<Fab
-					style={{ backgroundColor: 'blue', position: 'fixed', bottom: '60px', right: '25px' }}
+					style={{ backgroundColor: 'blue', position: 'fixed', bottom: '75px', right: '25px' }}
 					onClick={handleOpen}
 				>
 					<Add style={{ color: 'white' }} />

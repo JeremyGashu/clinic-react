@@ -24,8 +24,7 @@ import Header from './header';
 import { Avatar, Backdrop, Button, Fab, Fade, Grid, MenuItem, Modal, Select, TextField, Typography } from '@material-ui/core';
 import { sendPaymentData } from '../actions/payment_actions';
 
-const drawerWidth = 240;
-
+const drawerWidth = 280;
 const styles = (theme) => ({
 	'@global': {
 		body: {
@@ -280,7 +279,7 @@ const Payments = (props) => {
 			<main className={classes.content}>
 				<Header />
 				<Fab
-					style={{ backgroundColor: 'blue', position: 'fixed', bottom: '60px', right: '25px' }}
+					style={{ backgroundColor: 'blue', position: 'fixed', bottom: '75px', right: '25px' }}
 					onClick={handleOpen}
 				>
 					<Add style={{ color: 'white' }} />

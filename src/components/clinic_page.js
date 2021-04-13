@@ -22,8 +22,7 @@ import { logOut } from '../actions/auth_actions';
 import ClinicDashboard from './clinic_dashboard'
 import Header from './header';
 
-const drawerWidth = 240;
-
+const drawerWidth = 280;
 const styles = (theme) => ({
 	root: {
 		display: 'flex',

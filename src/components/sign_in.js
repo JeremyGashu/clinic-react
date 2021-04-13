@@ -120,7 +120,7 @@ const SignInSide = () => {
             {authState.authError && <Typography style={{color:'red'}} component="p" variant="p">
               Username or password incorrect!
           </Typography>}
-            <Button
+            {!authState.sendingAuthData && <Button
             disabled={authState.sendingAuthData}
             onClick={handleLoginSubmit}
             onSubmit={handleLoginSubmit}
@@ -131,7 +131,7 @@ const SignInSide = () => {
               className={classes.submit}
             >
               Sign In
-            </Button>
+            </Button>}
             <Grid container>
               {/* <Grid item xs>
                 <Link href="#" variant="body2">
