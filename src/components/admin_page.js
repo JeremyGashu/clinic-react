@@ -1,4 +1,4 @@
-import { Button, Divider, Grid, TextField } from '@material-ui/core';
+import { Divider, Grid } from '@material-ui/core';
 import { Person, Money, Info, Settings, ExitToApp } from '@material-ui/icons';
 import React from 'react';
 import AdminStat from './admin_status';
@@ -8,9 +8,7 @@ import { logOut } from '../actions/auth_actions';
 import { useHistory } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
 import Header from './header';
-
 import List from '@material-ui/core/List';
-
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -28,7 +26,7 @@ const AdminPage = () => {
 	return (
 		<div>
 			<Grid container>
-				<Grid style={{borderRight:' 1px solid #ffebee'}} lg={2} item>
+				<Grid style={{ borderRight: ' 1px solid #ffebee' }} lg={2} item>
 					<div
 						style={{
 							display: 'flex',
@@ -37,24 +35,7 @@ const AdminPage = () => {
 							flexDirection: 'column',
 						}}
 					>
-						{/* <img style={{ marginTop: '50px', marginBottom: '30px' }} src={logo} alt="logo" />
-						<TextField id="outlined-basic" size="small" label="Search" /> */}
 						<Divider style={{ marginTop: '20px' }} />
-						{/* <Button startIcon={<Person />} color="primary" size="large">
-							Customers
-						</Button>
-						<Button startIcon={<Money />} color="primary" size="large">
-							Payments
-						</Button>
-						<Button startIcon={<Info />} color="primary" size="large">
-							Admin Profile
-						</Button>
-						<Button startIcon={<Settings />} color="primary" size="large">
-							Settings
-						</Button>
-						<Button onClick={handleLogout} startIcon={<ExitToApp />} color="primary" size="large">
-							Logout
-						</Button> */}
 
 						<List>
 							<img width={130} style={{ marginBottom: '20px' }} src={logo} alt="logo" />
@@ -63,7 +44,11 @@ const AdminPage = () => {
 									<ListItemIcon>
 										<Person />
 									</ListItemIcon>
-									<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Customers" />
+									<ListItemText
+										disableTypography
+										style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+										primary="Customers"
+									/>
 								</ListItem>
 							</NavLink>
 
@@ -72,7 +57,11 @@ const AdminPage = () => {
 									<ListItemIcon>
 										<Money />
 									</ListItemIcon>
-									<ListItemText disableTypography style={{fontSize : '13px', fontFamily:'sans-serif'}} primary="Payments" />
+									<ListItemText
+										disableTypography
+										style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+										primary="Payments"
+									/>
 								</ListItem>
 							</NavLink>
 
@@ -81,25 +70,36 @@ const AdminPage = () => {
 									<ListItemIcon>
 										<Info />
 									</ListItemIcon>
-									<ListItemText disableTypography style={{fontSize : '13px'}} primary="Admin profile" />
+									<ListItemText
+										disableTypography
+										style={{ fontSize: '13px' }}
+										primary="Admin profile"
+									/>
 								</ListItem>
 							</NavLink>
-
 
 							<NavLink to="/admin" style={{ textDecoration: 'none' }}>
 								<ListItem button key={Math.random()}>
 									<ListItemIcon>
-									<Settings />
+										<Settings />
 									</ListItemIcon>
-									<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Setting" />
+									<ListItemText
+										disableTypography
+										style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+										primary="Setting"
+									/>
 								</ListItem>
 							</NavLink>
 							<Link onClick={handleLogout} style={{ textDecoration: 'none' }}>
-								<ListItem  button key={Math.random()}>
+								<ListItem button key={Math.random()}>
 									<ListItemIcon>
 										<ExitToApp />
 									</ListItemIcon>
-									<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Logout" />
+									<ListItemText
+										disableTypography
+										style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+										primary="Logout"
+									/>
 								</ListItem>
 							</Link>
 						</List>
@@ -107,7 +107,7 @@ const AdminPage = () => {
 				</Grid>
 
 				<Grid lg={10} item>
-					<div style={{ position: 'relative', marginTop: '10px', paddingBottom: '65px'}}>
+					<div style={{ position: 'relative', marginTop: '10px', paddingBottom: '65px' }}>
 						<Header />
 						<AdminStat />
 						<CustomizedTables />

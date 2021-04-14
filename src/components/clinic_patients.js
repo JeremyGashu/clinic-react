@@ -13,15 +13,28 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
 import { Link, NavLink } from 'react-router-dom';
-import { Accessible, Add, CalendarToday, Dashboard, ExitToApp, Person, TrendingUpRounded } from '@material-ui/icons';
-import { useDispatch,useSelector } from 'react-redux';
+import { Accessible, Add, CalendarToday, Dashboard, ExitToApp, Person } from '@material-ui/icons';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
 import { logOut } from '../actions/auth_actions';
 import PatientsTable from './clinic_patients_table';
 import { getClinicInfoRequest } from '../actions/clinic_info_actions';
 import Header from './header';
-import { Avatar, Backdrop, Button, CircularProgress, Fab, Fade, Grid, MenuItem, Modal, Select, TextField, Typography } from '@material-ui/core';
+import {
+	Avatar,
+	Backdrop,
+	Button,
+	CircularProgress,
+	Fab,
+	Fade,
+	Grid,
+	MenuItem,
+	Modal,
+	Select,
+	TextField,
+	Typography,
+} from '@material-ui/core';
 import { sendPatientData } from '../actions/patients_actions';
 
 const drawerWidth = 280;
@@ -115,19 +128,12 @@ const styles = (theme) => ({
 	},
 });
 
-
 const Patients = (props) => {
-
-
-
 	const [open, setOpen] = useState(false);
-
-	
 	const dispatch = useDispatch();
-	const clinicState = useSelector(state => state.clinicState)
-	const patientState = useSelector(state => state.patientState)
+	const patientState = useSelector((state) => state.patientState);
 	const history = useHistory();
-useEffect(() => {
+	useEffect(() => {
 		dispatch(getClinicInfoRequest());
 	}, []);
 	const handleLogout = (e) => {
@@ -153,7 +159,6 @@ useEffect(() => {
 		setOpen(false);
 	};
 
-
 	const handleDrawerOpen = () => {
 		setState(true);
 	};
@@ -164,7 +169,7 @@ useEffect(() => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		await dispatch(sendPatientData({ name,id, age,  address,  phoneNo, status }));
+		await dispatch(sendPatientData({ name, id, age, address, phoneNo, status }));
 		handleClose();
 		dispatch(getClinicInfoRequest());
 	};
@@ -191,11 +196,10 @@ useEffect(() => {
 		setStatus(e.target.value);
 	};
 
-
 	return (
 		<div className={classes.root}>
 			<CssBaseline />
-			
+
 			<Drawer
 				variant="permanent"
 				className={classNames(classes.drawer, {
@@ -212,7 +216,7 @@ useEffect(() => {
 			>
 				<div className={classes.toolbar}>
 					<IconButton onClick={state ? handleDrawerClose : handleDrawerOpen}>
-						{state ? <ChevronLeftIcon /> : <ChevronRightIcon /> }
+						{state ? <ChevronLeftIcon /> : <ChevronRightIcon />}
 					</IconButton>
 				</div>
 				<Divider />
@@ -223,7 +227,11 @@ useEffect(() => {
 							<ListItemIcon>
 								<Dashboard />
 							</ListItemIcon>
-							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Dashboard" />
+							<ListItemText
+								disableTypography
+								style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+								primary="Dashboard"
+							/>
 						</ListItem>
 					</NavLink>
 
@@ -232,7 +240,11 @@ useEffect(() => {
 							<ListItemIcon>
 								<CalendarToday />
 							</ListItemIcon>
-							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Appointments" />
+							<ListItemText
+								disableTypography
+								style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+								primary="Appointments"
+							/>
 						</ListItem>
 					</NavLink>
 					<NavLink to="/patients" style={{ textDecoration: 'none' }}>
@@ -240,7 +252,11 @@ useEffect(() => {
 							<ListItemIcon>
 								<Accessible />
 							</ListItemIcon>
-							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Patient" />
+							<ListItemText
+								disableTypography
+								style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+								primary="Patient"
+							/>
 						</ListItem>
 					</NavLink>
 
@@ -249,18 +265,24 @@ useEffect(() => {
 							<ListItemIcon>
 								<Person />
 							</ListItemIcon>
-							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Doctors" />
+							<ListItemText
+								disableTypography
+								style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+								primary="Doctors"
+							/>
 						</ListItem>
 					</NavLink>
-
-					
 
 					<NavLink to="/payments" style={{ textDecoration: 'none' }}>
 						<ListItem button key={Math.random()}>
 							<ListItemIcon>
 								<MailIcon />
 							</ListItemIcon>
-							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Payment" />
+							<ListItemText
+								disableTypography
+								style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+								primary="Payment"
+							/>
 						</ListItem>
 					</NavLink>
 					<Link onClick={handleLogout} style={{ textDecoration: 'none' }}>
@@ -268,12 +290,16 @@ useEffect(() => {
 							<ListItemIcon>
 								<ExitToApp />
 							</ListItemIcon>
-							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Logout" />
+							<ListItemText
+								disableTypography
+								style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+								primary="Logout"
+							/>
 						</ListItem>
 					</Link>
 				</List>
 			</Drawer>
-			<main style={{paddingBottom : '60px'}} className={classes.content}>
+			<main style={{ paddingBottom: '60px' }} className={classes.content}>
 				<Header />
 				<Fab
 					style={{ backgroundColor: 'blue', position: 'fixed', bottom: '75px', right: '25px' }}
@@ -341,7 +367,6 @@ useEffect(() => {
 										/>
 									</Grid>
 
-
 									<Grid item xs={12}>
 										<TextField
 											onChange={handleAgeChange}
@@ -353,11 +378,9 @@ useEffect(() => {
 											id="age"
 											label="Age"
 											autoFocus
-											type='number'
+											type="number"
 										/>
 									</Grid>
-
-									
 
 									<Grid item xs={12}>
 										<TextField
@@ -410,19 +433,13 @@ useEffect(() => {
 									>
 										Add Patient
 									</Button>
-								) : <CircularProgress />}
-
-								{/* {!signUpState.sendingSignUpData && (
-			
-		)} */}
+								) : (
+									<CircularProgress />
+								)}
 							</form>
 						</div>
 					</Fade>
 				</Modal>
-
-
-
-
 			</main>
 		</div>
 	);

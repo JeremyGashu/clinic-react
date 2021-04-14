@@ -11,7 +11,6 @@ import { useSelector } from 'react-redux';
 import { IconButton, Typography } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 
-
 const StyledTableCell = withStyles((theme) => ({
 	head: {
 		backgroundColor: '#3d5afe',
@@ -82,8 +81,11 @@ const PaymentsTable = () => {
 							<StyledTableCell align="right">{row.charges}</StyledTableCell>
 							<StyledTableCell align="right">{row.vat}</StyledTableCell>
 							<StyledTableCell align="right">{row.total}</StyledTableCell>
-							{/* <StyledTableCell align="right">{row.status}</StyledTableCell> */}
-							<StyledTableCell align="right"><IconButton><Delete style={{color:'red', fontSize:'20px'}}/></IconButton></StyledTableCell>
+							<StyledTableCell align="right">
+								<IconButton>
+									<Delete style={{ color: 'red', fontSize: '20px' }} />
+								</IconButton>
+							</StyledTableCell>
 						</StyledTableRow>
 					))}
 				</TableBody>

@@ -51,7 +51,7 @@ const SignUp = () => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
-	const [phoneNo, setPhoneNo] = useState('0912121212')
+	const [phoneNo, setPhoneNo] = useState('0912121212');
 
 	const signUpState = useSelector((state) => state.signUpState);
 	const dispatch = useDispatch();
@@ -80,8 +80,8 @@ const SignUp = () => {
 	};
 
 	const handlePhoneNumberChange = (e) => {
-		setPhoneNo(e.target.value)
-	}
+		setPhoneNo(e.target.value);
+	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -94,7 +94,9 @@ const SignUp = () => {
 			password !== '' &&
 			confirmPassword
 		) {
-			dispatch(sendSignUpData({ name, TTN, amount,phoneNo, userRegisteredName, username, password, confirmPassword }));
+			dispatch(
+				sendSignUpData({ name, TTN, amount, phoneNo, userRegisteredName, username, password, confirmPassword })
+			);
 		}
 	};
 
@@ -109,14 +111,14 @@ const SignUp = () => {
 				<img style={{ width: '100%' }} src={doctor} alt="" />
 			</Grid>
 			<Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-				<div className={classes.paper} style={{ maxHeight:'500px', overflow:'auto'}}>
+				<div className={classes.paper} style={{ maxHeight: '500px', overflow: 'auto' }}>
 					<Avatar className={classes.avatar}>
 						<LockOutlinedIcon />
 					</Avatar>
 					<Typography component="h1" variant="h5">
 						Sign in
 					</Typography>
-					<form style={{ padding:'60px'}} onSubmit={handleSubmit} className={classes.form} noValidate>
+					<form style={{ padding: '60px' }} onSubmit={handleSubmit} className={classes.form} noValidate>
 						<Grid container spacing={2}>
 							<Grid item xs={12}>
 								<TextField
@@ -144,7 +146,7 @@ const SignUp = () => {
 							</Grid>
 							<Grid item xs={12}>
 								<TextField
-								onChange={handlePhoneNumberChange}
+									onChange={handlePhoneNumberChange}
 									variant="outlined"
 									required
 									fullWidth
@@ -236,7 +238,9 @@ const SignUp = () => {
 							>
 								Sign Up
 							</Button>
-						):<CircularProgress />}
+						) : (
+							<CircularProgress />
+						)}
 						<Grid container justify="flex-end">
 							<Grid item>
 								<NavLink to="/">Already have an account? Sign in</NavLink>

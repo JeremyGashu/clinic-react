@@ -27,7 +27,7 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { sendAppointmentData } from '../actions/appointment_actions';
 import { TimeInput } from 'material-ui-time-picker';
-import  {formatAMPM} from '../utils/function_sets'
+import { formatAMPM } from '../utils/function_sets';
 
 const drawerWidth = 280;
 const styles = (theme) => ({
@@ -169,12 +169,6 @@ const Appointments = (props) => {
 	const handleEmailChange = (e) => {
 		setEmail(e.target.value);
 	};
-	const handleFromVisitTime = (e) => {
-		setFromVisitTime(e.target.value);
-	};
-	const handleToVisitTimeChange = (e) => {
-		setToVisitTime(e.target.value);
-	};
 	const handleInjuryChange = (e) => {
 		setInjury(e.target.value);
 	};
@@ -185,9 +179,9 @@ const Appointments = (props) => {
 		setDate(e.target.value);
 	};
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = (e) => {
 		e.preventDefault();
-		await dispatch(
+		dispatch(
 			sendAppointmentData({ name, email, date, doctor, injury, visitTime: `${fromVisitTime}-${toVisitTime}` })
 		);
 		handleClose();
@@ -296,7 +290,7 @@ const Appointments = (props) => {
 					</Link>
 				</List>
 			</Drawer>
-			<main style={{paddingBottom : '60px'}} className={classes.content}>
+			<main style={{ paddingBottom: '60px' }} className={classes.content}>
 				<Header />
 				<Fab
 					style={{ backgroundColor: 'blue', position: 'fixed', bottom: '75px', right: '25px' }}
@@ -378,17 +372,23 @@ const Appointments = (props) => {
 									</Grid>
 
 									<Grid item xs={12} sm={6}>
-									<Typography style={{fontSize:'11px', color:'#444'}}>From:</Typography>
-										<TimeInput mode="12h" onChange={(time) => {
-											setFromVisitTime(formatAMPM(time))
-										}} />
+										<Typography style={{ fontSize: '11px', color: '#444' }}>From:</Typography>
+										<TimeInput
+											mode="12h"
+											onChange={(time) => {
+												setFromVisitTime(formatAMPM(time));
+											}}
+										/>
 									</Grid>
 
 									<Grid item xs={12} sm={6}>
-										<Typography style={{fontSize:'11px', color:'#444'}}>To:</Typography>
-										<TimeInput mode="12h" onChange={(time) => {
-											setToVisitTime(formatAMPM(time))
-										}} />
+										<Typography style={{ fontSize: '11px', color: '#444' }}>To:</Typography>
+										<TimeInput
+											mode="12h"
+											onChange={(time) => {
+												setToVisitTime(formatAMPM(time));
+											}}
+										/>
 									</Grid>
 									{/* <Grid item xs={12} sm={6}>
 										<TextField
@@ -430,7 +430,7 @@ const Appointments = (props) => {
 										/>
 									</Grid>
 								</Grid>
-								{!appointmentState.sendingAppointmentData? 
+								{!appointmentState.sendingAppointmentData ? (
 									<Button
 										onClick={handleSubmit}
 										type="submit"
@@ -440,8 +440,10 @@ const Appointments = (props) => {
 										className={classes.submit}
 									>
 										Add Appointment
-									</Button> : <CircularProgress />
-								}
+									</Button>
+								) : (
+									<CircularProgress />
+								)}
 							</form>
 						</div>
 					</Fade>

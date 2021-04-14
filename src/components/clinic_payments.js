@@ -12,16 +12,27 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
-import { Link, NavLink} from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { Accessible, Add, CalendarToday, Dashboard, ExitToApp, Money, Person } from '@material-ui/icons';
-import { useDispatch , useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
 import { logOut } from '../actions/auth_actions';
 import PaymentsTable from './clinic_payments_table';
 import { getClinicInfoRequest } from '../actions/clinic_info_actions';
 import Header from './header';
-import { Avatar, Backdrop, Button, CircularProgress, Fab, Fade, Grid, MenuItem, Modal, Select, TextField, Typography } from '@material-ui/core';
+import {
+	Avatar,
+	Backdrop,
+	Button,
+	CircularProgress,
+	Fab,
+	Fade,
+	Grid,
+	Modal,
+	TextField,
+	Typography,
+} from '@material-ui/core';
 import { sendPaymentData } from '../actions/payment_actions';
 
 const drawerWidth = 280;
@@ -117,8 +128,8 @@ const styles = (theme) => ({
 
 const Payments = (props) => {
 	const dispatch = useDispatch();
-	const clinicState = useSelector(state => state.clinicState)
-	const paymentState = useSelector(state => state.paymentState)
+	const clinicState = useSelector((state) => state.clinicState);
+	const paymentState = useSelector((state) => state.paymentState);
 	const history = useHistory();
 
 	useEffect(() => {
@@ -133,8 +144,8 @@ const Payments = (props) => {
 
 	const [state, setState] = useState(true);
 
-	if(clinicState.fetchReady) {
-		console.log(clinicState.clinicInfo.data.patients)
+	if (clinicState.fetchReady) {
+		console.log(clinicState.clinicInfo.data.patients);
 	}
 
 	const handleDrawerOpen = () => {
@@ -161,7 +172,7 @@ const Payments = (props) => {
 	const [doctor, setDoctor] = useState('Gabriel Martilnelli');
 	const [charges, setCharges] = useState(200);
 	const [vat, setVat] = useState('10%');
-	const [total, setTotal] = useState(239);	
+	const [total, setTotal] = useState(239);
 
 	const handleBillNoChange = (e) => {
 		setBillNo(e.target.value);
@@ -186,19 +197,15 @@ const Payments = (props) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		await dispatch(
-			sendPaymentData({billNo, patientName,doctor, charges, vat, total })
-		);
+		await dispatch(sendPaymentData({ billNo, patientName, doctor, charges, vat, total }));
 		handleClose();
 		dispatch(getClinicInfoRequest());
 	};
-	
-
 
 	return (
 		<div className={classes.root}>
 			<CssBaseline />
-			
+
 			<Drawer
 				variant="permanent"
 				className={classNames(classes.drawer, {
@@ -215,7 +222,7 @@ const Payments = (props) => {
 			>
 				<div className={classes.toolbar}>
 					<IconButton onClick={state ? handleDrawerClose : handleDrawerOpen}>
-						{state ? <ChevronLeftIcon /> : <ChevronRightIcon /> }
+						{state ? <ChevronLeftIcon /> : <ChevronRightIcon />}
 					</IconButton>
 				</div>
 				<Divider />
@@ -226,7 +233,11 @@ const Payments = (props) => {
 							<ListItemIcon>
 								<Dashboard />
 							</ListItemIcon>
-							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Dashboard" />
+							<ListItemText
+								disableTypography
+								style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+								primary="Dashboard"
+							/>
 						</ListItem>
 					</NavLink>
 
@@ -235,7 +246,11 @@ const Payments = (props) => {
 							<ListItemIcon>
 								<CalendarToday />
 							</ListItemIcon>
-							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Appointments" />
+							<ListItemText
+								disableTypography
+								style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+								primary="Appointments"
+							/>
 						</ListItem>
 					</NavLink>
 					<NavLink to="/patients" style={{ textDecoration: 'none' }}>
@@ -243,7 +258,11 @@ const Payments = (props) => {
 							<ListItemIcon>
 								<Accessible />
 							</ListItemIcon>
-							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Patient" />
+							<ListItemText
+								disableTypography
+								style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+								primary="Patient"
+							/>
 						</ListItem>
 					</NavLink>
 
@@ -252,18 +271,24 @@ const Payments = (props) => {
 							<ListItemIcon>
 								<Person />
 							</ListItemIcon>
-							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Doctors" />
+							<ListItemText
+								disableTypography
+								style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+								primary="Doctors"
+							/>
 						</ListItem>
 					</NavLink>
-
-					
 
 					<NavLink to="/payments" style={{ textDecoration: 'none' }}>
 						<ListItem button key={Math.random()}>
 							<ListItemIcon>
 								<MailIcon />
 							</ListItemIcon>
-							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Payment" />
+							<ListItemText
+								disableTypography
+								style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+								primary="Payment"
+							/>
 						</ListItem>
 					</NavLink>
 					<Link onClick={handleLogout} style={{ textDecoration: 'none' }}>
@@ -271,12 +296,16 @@ const Payments = (props) => {
 							<ListItemIcon>
 								<ExitToApp />
 							</ListItemIcon>
-							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Logout" />
+							<ListItemText
+								disableTypography
+								style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+								primary="Logout"
+							/>
 						</ListItem>
 					</Link>
 				</List>
 			</Drawer>
-			<main style={{paddingBottom : '60px'}} className={classes.content}>
+			<main style={{ paddingBottom: '60px' }} className={classes.content}>
 				<Header />
 				<Fab
 					style={{ backgroundColor: 'blue', position: 'fixed', bottom: '75px', right: '25px' }}
@@ -319,7 +348,7 @@ const Payments = (props) => {
 							</Typography>
 							<form onSubmit={handleSubmit} className={classes.form}>
 								<Grid container spacing={2}>
-								<Grid item xs={12}>
+									<Grid item xs={12}>
 										<TextField
 											onChange={handleBillNoChange}
 											variant="outlined"
@@ -369,7 +398,6 @@ const Payments = (props) => {
 										/>
 									</Grid>
 
-									
 									<Grid item xs={12}>
 										<TextField
 											onChange={handleVatChange}
@@ -406,7 +434,9 @@ const Payments = (props) => {
 									>
 										Add Payment
 									</Button>
-								) : <CircularProgress />}
+								) : (
+									<CircularProgress />
+								)}
 
 								{/* {!signUpState.sendingSignUpData && (
 			
@@ -415,7 +445,6 @@ const Payments = (props) => {
 						</div>
 					</Fade>
 				</Modal>
-
 			</main>
 		</div>
 	);

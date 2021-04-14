@@ -19,7 +19,7 @@ import { useHistory } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
 import { getClinicInfoRequest } from '../actions/clinic_info_actions';
 import { logOut } from '../actions/auth_actions';
-import ClinicDashboard from './clinic_dashboard'
+import ClinicDashboard from './clinic_dashboard';
 import Header from './header';
 
 const drawerWidth = 280;
@@ -134,7 +134,7 @@ const ClinicPage = (props) => {
 			>
 				<div className={classes.toolbar}>
 					<IconButton onClick={state ? handleDrawerClose : handleDrawerOpen}>
-						{state ? <ChevronLeftIcon /> : <ChevronRightIcon /> }
+						{state ? <ChevronLeftIcon /> : <ChevronRightIcon />}
 					</IconButton>
 				</div>
 				<Divider />
@@ -145,7 +145,11 @@ const ClinicPage = (props) => {
 							<ListItemIcon>
 								<Dashboard />
 							</ListItemIcon>
-							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Dashboard" />
+							<ListItemText
+								disableTypography
+								style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+								primary="Dashboard"
+							/>
 						</ListItem>
 					</NavLink>
 
@@ -154,7 +158,11 @@ const ClinicPage = (props) => {
 							<ListItemIcon>
 								<CalendarToday />
 							</ListItemIcon>
-							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Appointments" />
+							<ListItemText
+								disableTypography
+								style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+								primary="Appointments"
+							/>
 						</ListItem>
 					</NavLink>
 					<NavLink to="/patients" style={{ textDecoration: 'none' }}>
@@ -162,7 +170,11 @@ const ClinicPage = (props) => {
 							<ListItemIcon>
 								<Accessible />
 							</ListItemIcon>
-							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Patient" />
+							<ListItemText
+								disableTypography
+								style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+								primary="Patient"
+							/>
 						</ListItem>
 					</NavLink>
 
@@ -171,18 +183,24 @@ const ClinicPage = (props) => {
 							<ListItemIcon>
 								<Person />
 							</ListItemIcon>
-							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Doctors" />
+							<ListItemText
+								disableTypography
+								style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+								primary="Doctors"
+							/>
 						</ListItem>
 					</NavLink>
-
-					
 
 					<NavLink to="/payments" style={{ textDecoration: 'none' }}>
 						<ListItem button key={Math.random()}>
 							<ListItemIcon>
 								<MailIcon />
 							</ListItemIcon>
-							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Payment" />
+							<ListItemText
+								disableTypography
+								style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+								primary="Payment"
+							/>
 						</ListItem>
 					</NavLink>
 					<Link onClick={handleLogout} style={{ textDecoration: 'none' }}>
@@ -190,14 +208,18 @@ const ClinicPage = (props) => {
 							<ListItemIcon>
 								<ExitToApp />
 							</ListItemIcon>
-							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Logout" />
+							<ListItemText
+								disableTypography
+								style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+								primary="Logout"
+							/>
 						</ListItem>
 					</Link>
 				</List>
 			</Drawer>
 			<main className={classes.content}>
-			<Header />
-				<ClinicDashboard/>
+				<Header />
+				<ClinicDashboard />
 			</main>
 		</div>
 	);
