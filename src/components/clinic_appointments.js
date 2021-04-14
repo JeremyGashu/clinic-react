@@ -21,11 +21,13 @@ import logo from '../assets/images/logo.png';
 import { logOut } from '../actions/auth_actions';
 import { getClinicInfoRequest } from '../actions/clinic_info_actions';
 import Header from './header';
-import { Backdrop, Button, Fab, Fade, Modal, Typography } from '@material-ui/core';
+import { Backdrop, Button, CircularProgress, Fab, Fade, Modal, Typography } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { sendAppointmentData } from '../actions/appointment_actions';
+import { TimeInput } from 'material-ui-time-picker';
+import  {formatAMPM} from '../utils/function_sets'
 
 const drawerWidth = 280;
 const styles = (theme) => ({
@@ -55,7 +57,7 @@ const styles = (theme) => ({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
-	  },
+	},
 
 	root: {
 		display: 'flex',
@@ -121,7 +123,7 @@ const styles = (theme) => ({
 const Appointments = (props) => {
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const appointmentState = useSelector(state => state.appointmentState)
+	const appointmentState = useSelector((state) => state.appointmentState);
 
 	useEffect(() => {
 		dispatch(getClinicInfoRequest());
@@ -153,42 +155,44 @@ const Appointments = (props) => {
 		setOpen(false);
 	};
 
-	const [name, setName] = useState('initial')
-    const [email ,setEmail] = useState('someemail@gmail.com')
-    const [date, setDate] = useState('12-12-2021')
-    const [fromVisitTime, setFromVisitTime] = useState('10:30')
-    const [toVisitTime, setToVisitTime] = useState('12:30')
-    const [injury, setInjury] = useState('Headache')
-    const [doctor, setDoctor] = useState('Ermias Gashu')
+	const [name, setName] = useState('initial');
+	const [email, setEmail] = useState('someemail@gmail.com');
+	const [date, setDate] = useState('12-12-2021');
+	const [fromVisitTime, setFromVisitTime] = useState('10:30');
+	const [toVisitTime, setToVisitTime] = useState('12:30');
+	const [injury, setInjury] = useState('Headache');
+	const [doctor, setDoctor] = useState('Ermias Gashu');
 
-    const handleNameChange = (e) => {
-        setName(e.target.value)
-    }
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value)
-    }
-    const handleFromVisitTime = (e) => {
-        setFromVisitTime(e.target.value)
-    }
-    const handleToVisitTimeChange = (e) => {
-        setToVisitTime(e.target.value)
-    }
-    const handleInjuryChange = (e) => {
-        setInjury(e.target.value)
-    }
-    const handleDoctorChange = (e) => {
-        setDoctor(e.target.value)
-    }
-    const handleDateChange = (e) => {
-        setDate(e.target.value)
-    }
+	const handleNameChange = (e) => {
+		setName(e.target.value);
+	};
+	const handleEmailChange = (e) => {
+		setEmail(e.target.value);
+	};
+	const handleFromVisitTime = (e) => {
+		setFromVisitTime(e.target.value);
+	};
+	const handleToVisitTimeChange = (e) => {
+		setToVisitTime(e.target.value);
+	};
+	const handleInjuryChange = (e) => {
+		setInjury(e.target.value);
+	};
+	const handleDoctorChange = (e) => {
+		setDoctor(e.target.value);
+	};
+	const handleDateChange = (e) => {
+		setDate(e.target.value);
+	};
 
-    const handleSubmit = async (e) => {
-		e.preventDefault()
-        await dispatch(sendAppointmentData({name, email, date, doctor , injury, visitTime : `${fromVisitTime}-${toVisitTime}`}))
-		handleClose()
-		dispatch(getClinicInfoRequest())
-    }
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		await dispatch(
+			sendAppointmentData({ name, email, date, doctor, injury, visitTime: `${fromVisitTime}-${toVisitTime}` })
+		);
+		handleClose();
+		dispatch(getClinicInfoRequest());
+	};
 
 	return (
 		<div className={classes.root}>
@@ -214,22 +218,42 @@ const Appointments = (props) => {
 				</div>
 				<Divider />
 				<List>
-					<img style={{ marginTop: '50px', marginBottom: '30px' }} src={logo} alt="logo" />
-					<NavLink to="clinic" style={{ textDecoration: 'none' }}>
+					<img width={130} style={{ marginBottom: '10px' }} src={logo} alt="logo" />
+					<NavLink to="/clinic" style={{ textDecoration: 'none' }}>
 						<ListItem button key={Math.random()}>
 							<ListItemIcon>
 								<Dashboard />
 							</ListItemIcon>
-							<ListItemText primary="Dashboard" />
+							<ListItemText
+								disableTypography
+								style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+								primary="Dashboard"
+							/>
 						</ListItem>
 					</NavLink>
 
-					<NavLink to="appointments" style={{ textDecoration: 'none' }}>
+					<NavLink to="/appointments" style={{ textDecoration: 'none' }}>
 						<ListItem button key={Math.random()}>
 							<ListItemIcon>
 								<CalendarToday />
 							</ListItemIcon>
-							<ListItemText primary="Appointments" />
+							<ListItemText
+								disableTypography
+								style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+								primary="Appointments"
+							/>
+						</ListItem>
+					</NavLink>
+					<NavLink to="/patients" style={{ textDecoration: 'none' }}>
+						<ListItem button key={Math.random()}>
+							<ListItemIcon>
+								<Accessible />
+							</ListItemIcon>
+							<ListItemText
+								disableTypography
+								style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+								primary="Patient"
+							/>
 						</ListItem>
 					</NavLink>
 
@@ -238,16 +262,11 @@ const Appointments = (props) => {
 							<ListItemIcon>
 								<Person />
 							</ListItemIcon>
-							<ListItemText primary="Doctors" />
-						</ListItem>
-					</NavLink>
-
-					<NavLink to="/patients" style={{ textDecoration: 'none' }}>
-						<ListItem button key={Math.random()}>
-							<ListItemIcon>
-								<Accessible />
-							</ListItemIcon>
-							<ListItemText primary="Patient" />
+							<ListItemText
+								disableTypography
+								style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+								primary="Doctors"
+							/>
 						</ListItem>
 					</NavLink>
 
@@ -256,7 +275,11 @@ const Appointments = (props) => {
 							<ListItemIcon>
 								<MailIcon />
 							</ListItemIcon>
-							<ListItemText primary="Payment" />
+							<ListItemText
+								disableTypography
+								style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+								primary="Payment"
+							/>
 						</ListItem>
 					</NavLink>
 					<Link onClick={handleLogout} style={{ textDecoration: 'none' }}>
@@ -264,13 +287,16 @@ const Appointments = (props) => {
 							<ListItemIcon>
 								<ExitToApp />
 							</ListItemIcon>
-							<ListItemText primary="Logout" />
+							<ListItemText
+								disableTypography
+								style={{ fontSize: '13px', fontFamily: 'sans-serif' }}
+								primary="Logout"
+							/>
 						</ListItem>
 					</Link>
 				</List>
-				<Divider />
 			</Drawer>
-			<main className={classes.content}>
+			<main style={{paddingBottom : '60px'}} className={classes.content}>
 				<Header />
 				<Fab
 					style={{ backgroundColor: 'blue', position: 'fixed', bottom: '75px', right: '25px' }}
@@ -293,119 +319,131 @@ const Appointments = (props) => {
 					}}
 				>
 					<Fade in={open}>
-					<div className={classes.paper} style={{maxHeight:'600px',backgroundColor:'white', maxWidth:'500px', padding:'30px', overflow:'auto', paddingBottom:'200px', borderRadius:'30px'}}>
-			<Avatar className={classes.avatar}>
-				<CalendarToday />
-			</Avatar>
-			<Typography component="h1" variant="h5">
-				Appointment
-			</Typography>
-			<form onSubmit={handleSubmit} className={classes.form}>
-				<Grid container spacing={2}>
-					<Grid item xs={12}>
-						<TextField
-                        onChange={handleNameChange}
-							variant="outlined"
-							required
-							fullWidth
-							id="name"
-							label="Patient Name"
-							name="name"
-							autoComplete="name"
-						/>
-					</Grid>
-					<Grid item xs={12}>
-						<TextField
-                        onChange={handleEmailChange}
-							variant="outlined"
-							required
-							fullWidth
-							id="email"
-							label="Email"
-							name="email"
-							autoComplete="email"
-						/>
-					</Grid>
-                    <Grid item xs={12}>
-						<TextField
-                        onChange={handleDateChange}
-							variant="outlined"
-							required
-							fullWidth
-							id="date"
-							label="Date"
-							name="date"
-							autoComplete="date"
-						/>
-					</Grid>
-					<Grid item xs={12} sm={6}>
-						<TextField
-                        onChange={handleFromVisitTime}
-							autoComplete="from"
-							name="From"
-							variant="outlined"
-							required
-							fullWidth
-							id="from"
-							label="From"
-							autoFocus
-						/>
-					</Grid>
-                    <Grid item xs={12} sm={6}>
-						<TextField
-                        onChange={handleToVisitTimeChange}
-							autoComplete="to"
-							name="to"
-							variant="outlined"
-							required
-							fullWidth
-							id="to"
-							label="To"
-							autoFocus
-						/>
-					</Grid>
-                   
-                    
-                    
-                    
-					<Grid item xs={12} >
-						<TextField
-                        onChange={handleInjuryChange}
-							variant="outlined"
-							required
-							fullWidth
-							id="injury"
-							label="Injury"
-							name="injury"
-							autoComplete="injury"
-						/>
-					</Grid>
+						<div
+							className={classes.paper}
+							style={{
+								maxHeight: '600px',
+								backgroundColor: 'white',
+								maxWidth: '500px',
+								padding: '30px',
+								overflow: 'auto',
+								paddingBottom: '200px',
+								borderRadius: '30px',
+							}}
+						>
+							<Avatar className={classes.avatar}>
+								<CalendarToday />
+							</Avatar>
+							<Typography component="h1" variant="h5">
+								Appointment
+							</Typography>
+							<form onSubmit={handleSubmit} className={classes.form}>
+								<Grid container spacing={2}>
+									<Grid item xs={12}>
+										<TextField
+											onChange={handleNameChange}
+											variant="outlined"
+											required
+											fullWidth
+											id="name"
+											label="Patient Name"
+											name="name"
+											autoComplete="name"
+										/>
+									</Grid>
+									<Grid item xs={12}>
+										<TextField
+											onChange={handleEmailChange}
+											variant="outlined"
+											required
+											fullWidth
+											id="email"
+											label="Email"
+											name="email"
+											autoComplete="email"
+										/>
+									</Grid>
+									<Grid item xs={12}>
+										<TextField
+											onChange={handleDateChange}
+											id="date"
+											label="Date"
+											type="date"
+											defaultValue="2021-12-12"
+											className={classes.textField}
+											InputLabelProps={{
+												shrink: true,
+											}}
+										/>
+									</Grid>
 
-					<Grid item xs={12}>
-						<TextField
-                        onChange={handleDoctorChange}
-							variant="outlined"
-							required
-							fullWidth
-							id="doctor"
-							label="Doctor"
-							name="doctor"
-							autoComplete="doctor"
-						/>
-					</Grid>
+									<Grid item xs={12} sm={6}>
+									<Typography style={{fontSize:'11px', color:'#444'}}>From:</Typography>
+										<TimeInput mode="12h" onChange={(time) => {
+											setFromVisitTime(formatAMPM(time))
+										}} />
+									</Grid>
 
-					
-					
-				</Grid>
-				{!appointmentState.sendingAppointmentData && <Button onClick={handleSubmit} type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-					Add Appointment
-				</Button>}
+									<Grid item xs={12} sm={6}>
+										<Typography style={{fontSize:'11px', color:'#444'}}>To:</Typography>
+										<TimeInput mode="12h" onChange={(time) => {
+											setToVisitTime(formatAMPM(time))
+										}} />
+									</Grid>
+									{/* <Grid item xs={12} sm={6}>
+										<TextField
+											onChange={handleToVisitTimeChange}
+											autoComplete="to"
+											name="to"
+											variant="outlined"
+											required
+											fullWidth
+											id="to"
+											label="To"
+											autoFocus
+										/>
+									</Grid> */}
 
-				{/* {!signUpState.sendingSignUpData && (
-			
-		)} */}
-			</form>
-		</div>
+									<Grid item xs={12}>
+										<TextField
+											onChange={handleInjuryChange}
+											variant="outlined"
+											required
+											fullWidth
+											id="injury"
+											label="Injury"
+											name="injury"
+											autoComplete="injury"
+										/>
+									</Grid>
+
+									<Grid item xs={12}>
+										<TextField
+											onChange={handleDoctorChange}
+											variant="outlined"
+											required
+											fullWidth
+											id="doctor"
+											label="Doctor"
+											name="doctor"
+											autoComplete="doctor"
+										/>
+									</Grid>
+								</Grid>
+								{!appointmentState.sendingAppointmentData? 
+									<Button
+										onClick={handleSubmit}
+										type="submit"
+										fullWidth
+										variant="contained"
+										color="primary"
+										className={classes.submit}
+									>
+										Add Appointment
+									</Button> : <CircularProgress />
+								}
+							</form>
+						</div>
 					</Fade>
 				</Modal>
 			</main>

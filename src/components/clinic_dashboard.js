@@ -54,8 +54,8 @@ const ClinicDashboard = ({ classes }) => {
 	}
 
     return (
-        clinicState.fetchReady ? <Grid container>
-		<Grid item xs={12} md={6} lg={3}>
+        clinicState.fetchReady ? <Grid container style={{display:'flex', justifyContent:'space-evenly'}}>
+		<Grid  item xs={12} md={6} lg={2}>
 			<Card className={classes.root}>
 				<CardActionArea
 					style={{
@@ -68,7 +68,6 @@ const ClinicDashboard = ({ classes }) => {
 					<i className="material-icons hashtag" style={{ color: '#3d5afe', fontSize: '100px' }}>
 						#
 					</i>
-					{/* <AttachMoneyIcon m style={{fontSize:'100px', color:'#3d5afe', alignSelf:'center'}} /> */}
 					<CardContent
 						style={{
 							display: 'flex',
@@ -77,10 +76,10 @@ const ClinicDashboard = ({ classes }) => {
 							flexDirection: 'column',
 						}}
 					>
-						<Typography gutterBottom variant="h3" component="h2">
+						<Typography style={{fontSize:'25px', fontWeight:'bolder'}} gutterBottom variant="h3" component="h2">
 							{clinicState.clinicInfo.data.appointments.length}
 						</Typography>
-						<Typography gutterBottom variant="h5" component="h2" style={{ color: 'grey' }}>
+						<Typography gutterBottom variant="h6" component="h2" style={{ color: 'grey' }}>
 							Appointments
 						</Typography>
 						
@@ -88,7 +87,7 @@ const ClinicDashboard = ({ classes }) => {
 				</CardActionArea>
 			</Card>
 		</Grid>
-		<Grid item xs={12} md={6} lg={3}>
+		<Grid item xs={12} md={6} lg={2}>
 			<Card className={classes.root}>
 				<CardActionArea
 					style={{
@@ -107,10 +106,10 @@ const ClinicDashboard = ({ classes }) => {
 							flexDirection: 'column',
 						}}
 					>
-						<Typography gutterBottom variant="h3" component="h2">
+						<Typography style={{fontSize:'25px', fontWeight:'bolder'}} gutterBottom variant="h3" component="h2">
 							{getPatientsToday(clinicState.clinicInfo.data.clinicInfo._id, clinicState.clinicInfo.data.patients)}
 						</Typography>
-						<Typography gutterBottom variant="h5" component="h2" style={{ color: 'grey' }}>
+						<Typography gutterBottom variant="h6" component="h2" style={{ color: 'grey' }}>
 							New Patients
 						</Typography>
 						
@@ -118,7 +117,7 @@ const ClinicDashboard = ({ classes }) => {
 				</CardActionArea>
 			</Card>
 		</Grid>
-		<Grid item xs={12} md={6} lg={3}>
+		<Grid item xs={12} md={6} lg={2}>
 			<Card className={classes.root}>
 				<CardActionArea
 					style={{
@@ -137,10 +136,10 @@ const ClinicDashboard = ({ classes }) => {
 							flexDirection: 'column',
 						}}
 					>
-						<Typography gutterBottom variant="h3" component="h2">
+						<Typography style={{fontSize:'25px', fontWeight:'bolder'}} gutterBottom variant="h3" component="h2">
 						{getTodaysIncomeOfSpecificClinic(clinicState.clinicInfo.data.clinicInfo._id, clinicState.clinicInfo.data.payments)}
 						</Typography>
-						<Typography gutterBottom variant="h5" component="h2" style={{ color: 'grey' }}>
+						<Typography gutterBottom variant="h6" component="h2" style={{ color: 'grey' }}>
 							Today's Income
 						</Typography>
 						
@@ -148,7 +147,7 @@ const ClinicDashboard = ({ classes }) => {
 				</CardActionArea>
 			</Card>
 		</Grid>
-		<Grid item xs={12} md={6} lg={3}>
+		<Grid item xs={12} md={6} lg={2}>
 			<Card className={classes.root}>
 				<CardActionArea
 					style={{
@@ -170,10 +169,10 @@ const ClinicDashboard = ({ classes }) => {
 							flexDirection: 'column',
 						}}
 					>
-						<Typography gutterBottom variant="h3" component="h2">
+						<Typography style={{fontSize:'25px', fontWeight:'bolder'}} gutterBottom variant="h3" component="h2">
 						{getTotalIncomeOfSpecificClinic(clinicState.clinicInfo.data.clinicInfo._id, clinicState.clinicInfo.data.payments)}
 						</Typography>
-						<Typography gutterBottom variant="h5" component="h2" style={{ color: 'grey' }}>
+						<Typography gutterBottom variant="h6" component="h2" style={{ color: 'grey' }}>
 							Total Income
 						</Typography>
 						

@@ -25,6 +25,7 @@ import {
 	Avatar,
 	Backdrop,
 	Button,
+	CircularProgress,
 	Fab,
 	Fade,
 	Grid,
@@ -163,9 +164,7 @@ const Doctors = (props) => {
 	};
 	const { classes, theme } = props;
 
-	if (clinicState.fetchReady) {
-		console.log(doctorState.sendingDoctorData);
-	}
+
 
 	const [name, setName] = useState('Ermias Gashu');
 	const [speciality, setSpeciality] = useState('Surgeon');
@@ -212,27 +211,35 @@ const Doctors = (props) => {
 			>
 				<div className={classes.toolbar}>
 					<IconButton onClick={state ? handleDrawerClose : handleDrawerOpen}>
-						{state ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+						{state ? <ChevronLeftIcon /> : <ChevronRightIcon /> }
 					</IconButton>
 				</div>
 				<Divider />
 				<List>
-					<img style={{ marginTop: '50px', marginBottom: '30px' }} src={logo} alt="logo" />
-					<NavLink to="clinic" style={{ textDecoration: 'none' }}>
+					<img width={130} style={{ marginBottom: '10px' }} src={logo} alt="logo" />
+					<NavLink to="/clinic" style={{ textDecoration: 'none' }}>
 						<ListItem button key={Math.random()}>
 							<ListItemIcon>
 								<Dashboard />
 							</ListItemIcon>
-							<ListItemText primary="Dashboard" />
+							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Dashboard" />
 						</ListItem>
 					</NavLink>
 
-					<NavLink to="appointments" style={{ textDecoration: 'none' }}>
+					<NavLink to="/appointments" style={{ textDecoration: 'none' }}>
 						<ListItem button key={Math.random()}>
 							<ListItemIcon>
 								<CalendarToday />
 							</ListItemIcon>
-							<ListItemText primary="Appointments" />
+							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Appointments" />
+						</ListItem>
+					</NavLink>
+					<NavLink to="/patients" style={{ textDecoration: 'none' }}>
+						<ListItem button key={Math.random()}>
+							<ListItemIcon>
+								<Accessible />
+							</ListItemIcon>
+							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Patient" />
 						</ListItem>
 					</NavLink>
 
@@ -241,25 +248,18 @@ const Doctors = (props) => {
 							<ListItemIcon>
 								<Person />
 							</ListItemIcon>
-							<ListItemText primary="Doctors" />
+							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Doctors" />
 						</ListItem>
 					</NavLink>
 
-					<NavLink to="/patients" style={{ textDecoration: 'none' }}>
-						<ListItem button key={Math.random()}>
-							<ListItemIcon>
-								<Accessible />
-							</ListItemIcon>
-							<ListItemText primary="Patient" />
-						</ListItem>
-					</NavLink>
+					
 
 					<NavLink to="/payments" style={{ textDecoration: 'none' }}>
 						<ListItem button key={Math.random()}>
 							<ListItemIcon>
 								<MailIcon />
 							</ListItemIcon>
-							<ListItemText primary="Payment" />
+							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Payment" />
 						</ListItem>
 					</NavLink>
 					<Link onClick={handleLogout} style={{ textDecoration: 'none' }}>
@@ -267,13 +267,12 @@ const Doctors = (props) => {
 							<ListItemIcon>
 								<ExitToApp />
 							</ListItemIcon>
-							<ListItemText primary="Logout" />
+							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Logout" />
 						</ListItem>
 					</Link>
 				</List>
-				<Divider />
 			</Drawer>
-			<main className={classes.content}>
+			<main style={{paddingBottom : '60px'}} className={classes.content}>
 				<Header />
 				<Fab
 					style={{ backgroundColor: 'blue', position: 'fixed', bottom: '75px', right: '25px' }}
@@ -365,7 +364,7 @@ const Doctors = (props) => {
 										/>
 									</Grid>
 								</Grid>
-								{!doctorState.sendingDoctorData && (
+								{!doctorState.sendingDoctorData ? (
 									<Button
 										onClick={handleSubmit}
 										type="submit"
@@ -376,11 +375,9 @@ const Doctors = (props) => {
 									>
 										Add Doctor
 									</Button>
-								)}
+								) : <CircularProgress /> }
 
-								{/* {!signUpState.sendingSignUpData && (
-			
-		)} */}
+
 							</form>
 						</div>
 					</Fade>

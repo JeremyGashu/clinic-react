@@ -1,6 +1,6 @@
 import './App.css';
 import SignInSide from './components/sign_in';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import {HashRouter as Router, Switch, Route} from 'react-router-dom'
 import SignUp from './components/sign_up';
 import AdminPage from './components/admin_page';
 import ClinicPage from './components/clinic_page';

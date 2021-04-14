@@ -28,7 +28,7 @@ const AdminPage = () => {
 	return (
 		<div>
 			<Grid container>
-				<Grid lg={2} item>
+				<Grid style={{borderRight:' 1px solid #ffebee'}} lg={2} item>
 					<div
 						style={{
 							display: 'flex',
@@ -57,14 +57,13 @@ const AdminPage = () => {
 						</Button> */}
 
 						<List>
-							<img style={{ marginTop: '50px', marginBottom: '30px' }} src={logo} alt="logo" />
-							<Divider style={{ marginTop: '50px' }} />
+							<img width={130} style={{ marginBottom: '20px' }} src={logo} alt="logo" />
 							<NavLink to="/admin" style={{ textDecoration: 'none' }}>
 								<ListItem button key={Math.random()}>
 									<ListItemIcon>
 										<Person />
 									</ListItemIcon>
-									<ListItemText primary="Customers" />
+									<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Customers" />
 								</ListItem>
 							</NavLink>
 
@@ -73,7 +72,7 @@ const AdminPage = () => {
 									<ListItemIcon>
 										<Money />
 									</ListItemIcon>
-									<ListItemText primary="Payments" />
+									<ListItemText disableTypography style={{fontSize : '13px', fontFamily:'sans-serif'}} primary="Payments" />
 								</ListItem>
 							</NavLink>
 
@@ -82,33 +81,25 @@ const AdminPage = () => {
 									<ListItemIcon>
 										<Info />
 									</ListItemIcon>
-									<ListItemText primary="Admin profile" />
+									<ListItemText disableTypography style={{fontSize : '13px'}} primary="Admin profile" />
 								</ListItem>
 							</NavLink>
 
-							{/* <NavLink to="/admin" style={{ textDecoration: 'none' }}>
-								<ListItem button key={Math.random()}>
-									<ListItemIcon>
-										<Person />
-									</ListItemIcon>
-									<ListItemText primary="Patient" />
-								</ListItem>
-							</NavLink> */}
 
 							<NavLink to="/admin" style={{ textDecoration: 'none' }}>
 								<ListItem button key={Math.random()}>
 									<ListItemIcon>
 									<Settings />
 									</ListItemIcon>
-									<ListItemText primary="Setting" />
+									<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Setting" />
 								</ListItem>
 							</NavLink>
 							<Link onClick={handleLogout} style={{ textDecoration: 'none' }}>
-								<ListItem button key={Math.random()}>
+								<ListItem  button key={Math.random()}>
 									<ListItemIcon>
 										<ExitToApp />
 									</ListItemIcon>
-									<ListItemText primary="Logout" />
+									<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Logout" />
 								</ListItem>
 							</Link>
 						</List>
@@ -116,7 +107,7 @@ const AdminPage = () => {
 				</Grid>
 
 				<Grid lg={10} item>
-					<div style={{ position: 'relative', marginTop: '10px', paddingBottom: '50px' }}>
+					<div style={{ position: 'relative', marginTop: '10px', paddingBottom: '65px'}}>
 						<Header />
 						<AdminStat />
 						<CustomizedTables />

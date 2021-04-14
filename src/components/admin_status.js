@@ -54,8 +54,8 @@ const AdminStat = ({ classes }) => {
     const todaysCIncome = adminState.fetchReady ? getTodaysCompanyIncome(adminState.adminData.clinics) : 0
 
     return (
-        <Grid container>
-				<Grid item xs={12} md={6} lg={3}>
+        <Grid container style={{display:'flex', justifyContent:'space-evenly'}}>
+				<Grid item xs={12} md={6} lg={2}>
 					<Card className={classes.root}>
 						<CardActionArea
 							style={{
@@ -77,18 +77,18 @@ const AdminStat = ({ classes }) => {
 									flexDirection: 'column',
 								}}
 							>
-                                <Typography gutterBottom variant="h3" component="h2">
+                                <Typography style={{fontSize:'25px', fontWeight:'bolder'}} gutterBottom variant="h3" component="h2">
 									{totalCustmers}
 								</Typography>
-								<Typography gutterBottom variant="h5" component="h2" style={{ color: 'grey' }}>
-									Number of customers
+								<Typography gutterBottom variant="h6" component="h2" style={{ color: 'grey' }}>
+									Customers
 								</Typography>
 								
 							</CardContent>
 						</CardActionArea>
 					</Card>
 				</Grid>
-				<Grid item xs={12} md={6} lg={3}>
+				<Grid item xs={12} md={6} lg={2}>
 					<Card className={classes.root}>
 						<CardActionArea
 							style={{
@@ -107,10 +107,10 @@ const AdminStat = ({ classes }) => {
 									flexDirection: 'column',
 								}}
 							>
-                                <Typography gutterBottom variant="h3" component="h2">
+                                <Typography style={{fontSize:'25px', fontWeight:'bolder'}} gutterBottom variant="h3" component="h2">
 									{newlyRegistered}
 								</Typography>
-								<Typography gutterBottom variant="h5" component="h2" style={{ color: 'grey' }}>
+								<Typography gutterBottom variant="h6" component="h2" style={{ color: 'grey' }}>
 									New customers
 								</Typography>
 								
@@ -118,7 +118,7 @@ const AdminStat = ({ classes }) => {
 						</CardActionArea>
 					</Card>
 				</Grid>
-				<Grid item xs={12} md={6} lg={3}>
+				<Grid item xs={12} md={6} lg={2}>
 					<Card className={classes.root}>
 						<CardActionArea
 							style={{
@@ -137,10 +137,10 @@ const AdminStat = ({ classes }) => {
 									flexDirection: 'column',
 								}}
 							>
-                                <Typography gutterBottom variant="h3" component="h2">
+                                <Typography style={{fontSize:'25px', fontWeight:'bolder'}} gutterBottom variant="h3" component="h2">
 								{todaysCIncome}
 								</Typography>
-								<Typography gutterBottom variant="h5" component="h2" style={{ color: 'grey' }}>
+								<Typography gutterBottom variant="h6" component="h2" style={{ color: 'grey' }}>
 									Today's Income
 								</Typography>
 								
@@ -148,7 +148,7 @@ const AdminStat = ({ classes }) => {
 						</CardActionArea>
 					</Card>
 				</Grid>
-				<Grid item xs={12} md={6} lg={3}>
+				<Grid item xs={12} md={6} lg={2}>
 					<Card className={classes.root}>
 						<CardActionArea
 							style={{
@@ -170,10 +170,10 @@ const AdminStat = ({ classes }) => {
 									flexDirection: 'column',
 								}}
 							>
-                                <Typography gutterBottom variant="h3" component="h2">
+                                <Typography style={{fontSize:'25px', fontWeight:'bolder'}} gutterBottom variant="h3" component="h2">
 									{companyRevenue}
 								</Typography>
-								<Typography gutterBottom variant="h5" component="h2" style={{ color: 'grey' }}>
+								<Typography gutterBottom variant="h6" component="h2" style={{ color: 'grey' }}>
 									Total Revenue
 								</Typography>
 								

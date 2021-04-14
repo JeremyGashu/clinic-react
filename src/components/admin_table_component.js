@@ -35,7 +35,7 @@ const createData = (adminState) => {
   const finalParsed = []
   adminState.adminData.clinics.forEach(clinic => {
     finalParsed.push({
-      name : clinic.name, userRegisteredName : clinic.userRegisteredName, patientToday : getPatientsToday(clinic._id, adminState.adminData.patients), patientTotal : getTotalPatientsTotal(clinic._id, adminState.adminData.patients), daylyIncome : getTodaysIncomeOfSpecificClinic(clinic._id, adminState.adminData.payments), totalIncome : getTotalIncomeOfSpecificClinic(clinic._id, adminState.adminData.payments)
+      name : clinic.name,phoneNo : clinic.phoneNo, userRegisteredName : clinic.userRegisteredName, patientToday : getPatientsToday(clinic._id, adminState.adminData.patients), patientTotal : getTotalPatientsTotal(clinic._id, adminState.adminData.patients), daylyIncome : getTodaysIncomeOfSpecificClinic(clinic._id, adminState.adminData.payments), totalIncome : getTotalIncomeOfSpecificClinic(clinic._id, adminState.adminData.payments)
     })
   })
   return finalParsed
@@ -67,6 +67,7 @@ const CustomizedTables = () => {
         <TableRow>
           <StyledTableCell align="right">Clinic's Name</StyledTableCell>
           <StyledTableCell align="right">User Name</StyledTableCell>
+          <StyledTableCell align="right">Phone number</StyledTableCell>
           <StyledTableCell align="right">Patients today</StyledTableCell>
           <StyledTableCell align="right">Total patients</StyledTableCell>
           <StyledTableCell align="right">Daily income in ETB</StyledTableCell>
@@ -78,6 +79,7 @@ const CustomizedTables = () => {
           <StyledTableRow key={Math.random()}>
             <StyledTableCell align="right">{row.name}</StyledTableCell>
             <StyledTableCell align="right">{row.userRegisteredName}</StyledTableCell>
+            <StyledTableCell align="right">{row.phoneNo}</StyledTableCell>
             <StyledTableCell align="right">{row.patientToday}</StyledTableCell>
             <StyledTableCell align="right">{row.patientTotal}</StyledTableCell>
             <StyledTableCell align="right">{row.daylyIncome}</StyledTableCell>

@@ -21,7 +21,7 @@ import { logOut } from '../actions/auth_actions';
 import PaymentsTable from './clinic_payments_table';
 import { getClinicInfoRequest } from '../actions/clinic_info_actions';
 import Header from './header';
-import { Avatar, Backdrop, Button, Fab, Fade, Grid, MenuItem, Modal, Select, TextField, Typography } from '@material-ui/core';
+import { Avatar, Backdrop, Button, CircularProgress, Fab, Fade, Grid, MenuItem, Modal, Select, TextField, Typography } from '@material-ui/core';
 import { sendPaymentData } from '../actions/payment_actions';
 
 const drawerWidth = 280;
@@ -220,22 +220,30 @@ const Payments = (props) => {
 				</div>
 				<Divider />
 				<List>
-					<img style={{ marginTop: '50px', marginBottom: '30px' }} src={logo} alt="logo" />
-					<NavLink to="clinic" style={{ textDecoration: 'none' }}>
+					<img width={130} style={{ marginBottom: '10px' }} src={logo} alt="logo" />
+					<NavLink to="/clinic" style={{ textDecoration: 'none' }}>
 						<ListItem button key={Math.random()}>
 							<ListItemIcon>
 								<Dashboard />
 							</ListItemIcon>
-							<ListItemText primary="Dashboard" />
+							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Dashboard" />
 						</ListItem>
 					</NavLink>
 
-					<NavLink to="appointments" style={{ textDecoration: 'none' }}>
+					<NavLink to="/appointments" style={{ textDecoration: 'none' }}>
 						<ListItem button key={Math.random()}>
 							<ListItemIcon>
 								<CalendarToday />
 							</ListItemIcon>
-							<ListItemText primary="Appointments" />
+							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Appointments" />
+						</ListItem>
+					</NavLink>
+					<NavLink to="/patients" style={{ textDecoration: 'none' }}>
+						<ListItem button key={Math.random()}>
+							<ListItemIcon>
+								<Accessible />
+							</ListItemIcon>
+							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Patient" />
 						</ListItem>
 					</NavLink>
 
@@ -244,25 +252,18 @@ const Payments = (props) => {
 							<ListItemIcon>
 								<Person />
 							</ListItemIcon>
-							<ListItemText primary="Doctors" />
+							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Doctors" />
 						</ListItem>
 					</NavLink>
 
-					<NavLink to="/patients" style={{ textDecoration: 'none' }}>
-						<ListItem button key={Math.random()}>
-							<ListItemIcon>
-								<Accessible />
-							</ListItemIcon>
-							<ListItemText primary="Patient" />
-						</ListItem>
-					</NavLink>
+					
 
 					<NavLink to="/payments" style={{ textDecoration: 'none' }}>
 						<ListItem button key={Math.random()}>
 							<ListItemIcon>
 								<MailIcon />
 							</ListItemIcon>
-							<ListItemText primary="Payment" />
+							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Payment" />
 						</ListItem>
 					</NavLink>
 					<Link onClick={handleLogout} style={{ textDecoration: 'none' }}>
@@ -270,13 +271,12 @@ const Payments = (props) => {
 							<ListItemIcon>
 								<ExitToApp />
 							</ListItemIcon>
-							<ListItemText primary="Logout" />
+							<ListItemText disableTypography style={{fontSize : '13px',fontFamily:'sans-serif'}} primary="Logout" />
 						</ListItem>
 					</Link>
 				</List>
-				<Divider />
 			</Drawer>
-			<main className={classes.content}>
+			<main style={{paddingBottom : '60px'}} className={classes.content}>
 				<Header />
 				<Fab
 					style={{ backgroundColor: 'blue', position: 'fixed', bottom: '75px', right: '25px' }}
@@ -395,7 +395,7 @@ const Payments = (props) => {
 										/>
 									</Grid>
 								</Grid>
-								{!paymentState.sendingPaymentData && (
+								{!paymentState.sendingPaymentData ? (
 									<Button
 										onClick={handleSubmit}
 										type="submit"
@@ -406,7 +406,7 @@ const Payments = (props) => {
 									>
 										Add Payment
 									</Button>
-								)}
+								) : <CircularProgress />}
 
 								{/* {!signUpState.sendingSignUpData && (
 			
