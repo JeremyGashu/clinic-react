@@ -165,7 +165,7 @@ const SignUp = () => {
 									required
 									fullWidth
 									id="ttn"
-									label="TT#"
+									label="TT# or Receipt"
 									autoFocus
 								/>
 							</Grid>
@@ -176,7 +176,7 @@ const SignUp = () => {
 									required
 									fullWidth
 									id="amount"
-									label="Amount"
+									label="Amount you paid for"
 									name="amount"
 									autoComplete="amount"
 									type="number"
